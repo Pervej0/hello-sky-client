@@ -1,18 +1,29 @@
-import {
-  Box,
-  Container,
-  Grid,
-  List,
-  ListItem,
-  Typography,
-} from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { COLORS, CustomTypography, FONTS } from "../../Styles/constants";
 import styled from "styled-components";
+import { useAuth } from "../../Hooks/useAuth";
 
 const Navbar2 = () => {
   const location = useLocation();
+  const { logOut, user } = useAuth();
+
+  const NavItem = () => {
+    if (!user?.email) {
+      if (location.pathname === "/registration") {
+        return <Link to="/login">Login</Link>;
+      } else {
+        return <Link to="/registration">Register</Link>;
+      }
+    } else {
+      return (
+        <Link onClick={logOut} type="button">
+          Log out
+        </Link>
+      );
+    }
+  };
 
   return (
     <FullWidthContainer
@@ -35,13 +46,23 @@ const Navbar2 = () => {
             </Link>
           </Box>
           <Box className="accountBox">
-            {/* <Link to="/login">Login</Link>
-          <Link to="/Registration">Register</Link> */}
-            {location.pathname === "/registration" ? (
+            {<NavItem />}
+            {/* {user && (
+              <Button
+                onClick={signOut}
+                type="button"
+                variant="contained"
+                className="logOutBtn"
+                size="small"
+              >
+                Log out
+              </Button>
+            )} */}
+            {/* {location.pathname === "/registration" ? (
               <Link to="/login">Login</Link>
             ) : (
               <Link to="/registration">Register</Link>
-            )}
+            )} */}
           </Box>
         </NavbarGrid>
       </Container>

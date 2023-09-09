@@ -15,7 +15,7 @@ const BannerContainer = (props) => {
   };
   return (
     <>
-      <Container sx={Banner} maxWidth={true}>
+      <Container sx={Banner} maxWidth="true">
         {props.children}
       </Container>
       ;

@@ -7,12 +7,13 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { COLORS, CustomTypography, FONTS } from "../../Styles/constants";
 import styled from "styled-components";
+import { useAuth } from "../../Hooks/useAuth";
 
 const Navbar = () => {
-  //   const location = useLocation();
+  const { user, logOut } = useAuth();
 
   return (
     <Container>
@@ -52,10 +53,31 @@ const Navbar = () => {
           className="accountBox"
           sx={{ position: "absolute", right: 0, top: "auto" }}
         >
-          {/* <Link to="/login">Login</Link>
-        <Link to="/Registration">Register</Link> */}
-          <Link to="/login">Login</Link>
-          <Link to="/registration">Register</Link>
+          {!user?.email ? (
+            <>
+              <Link to="/login">Login</Link>
+              <Link to="/registration">Register</Link>
+            </>
+          ) : (
+            <>
+              <Box sx={{ display: "flex" }}>
+                <Box
+                  component="img"
+                  sx={{
+                    height: 35,
+                    width: 35,
+                    marginRight: "10px",
+                    borderRadius: "50px",
+                  }}
+                  src={user?.photoURL}
+                  alt="The house from the offer."
+                />
+                <Link onClick={logOut} type="button">
+                  Log out
+                </Link>
+              </Box>
+            </>
+          )}
         </Box>
       </NavbarGrid>
     </Container>
@@ -108,6 +130,12 @@ const NavbarGrid = styled(Grid)`
     margin-left: 5px;
     text-decoration: none;
     border-radius: 5px;
+  }
+
+  .logOutBtn {
+    background: white;
+    color: BLACK;
+    font-weight: 600;
   }
 `;
 
