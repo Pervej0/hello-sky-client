@@ -1,0 +1,175 @@
+{
+  "details": [
+    {
+      "id": 0,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/ABJ/810x270.jpg",
+      "destination_title": "CÔTE D'IVOIRE (IVORY COAST)",
+      "destination_ABBR": "(ABJ)",
+      "destination": "Abidjan",
+      "short_description": "History & Culture - Nature & Scenery - Safari",
+      "description": "Abidjan has all the hallmarks of a winning destination – abundant cultural offerings, a vibrant music scene and a dynamic gourmet offering."
+    },
+    {
+      "id": 1,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/ABV/810x270.jpg",
+      "destination_title": "NIGERIA",
+      "destination_ABBR": "(ABV)",
+      "destination": "Abuja",
+      "short_description": "",
+      "description": "Abuja was made the capital of Nigeria in 1991, and now nourishes forward-thinking attitudes in up-and-coming surroundings."
+    },
+    {
+      "id": 2,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/ACC/810x270.jpg",
+      "destination_title": "GHANA",
+      "destination_ABBR": "(ACC)",
+      "destination": "Accra",
+      "short_description": "Backpacking - Safari",
+      "description": "Abidjan has all the hallmarks of a winning destination – abundant cultural offerings, a vibrant music scene and a dynamic gourmet offering."
+    },
+    {
+      "id": 3,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/ADD/810x270.jpg",
+      "destination_title": "ETHOPIA",
+      "destination_ABBR": "(ADD)",
+      "destination": "ADIS ABABA",
+      "short_description": "History & Culture - Nature & Scenery - Safari",
+      "description": "From the moment your flight to Addis Ababa arrives, the city delivers in every sense."
+    },
+    {
+      "id": 4,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/AMD/810x270.jpg",
+      "destination_title": "INDIA",
+      "destination_ABBR": "(AMD)",
+      "destination": "Ahmedabad",
+      "short_description": "",
+      "description": "Ahmedabad has all the hallmarks of a winning destination – abundant cultural offerings, a vibrant music scene and a dynamic gourmet offering."
+    },
+    {
+      "id": 5,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/ALG/810x270.jpg",
+      "destination_title": "ALGERIA",
+      "destination_ABBR": "(ALG)",
+      "destination": "Algiers",
+      "short_description": "",
+      "description": "ALGERIA has all the hallmarks of a winning destination – abundant cultural offerings, a vibrant music scene and a dynamic gourmet offering."
+    },
+    {
+      "id": 6,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/AMM/810x270.jpg",
+      "destination_title": "JORDAN",
+      "destination_ABBR": "(AMM)",
+      "destination": "Amman",
+      "short_description": "History & Culture - Backpacking",
+      "description": "Amman has all the hallmarks of a winning destination – abundant cultural offerings, a vibrant music scene and a dynamic gourmet offering."
+    },
+    {
+      "id": 7,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/AMS/810x270.jpg",
+      "destination_title": "NETHERLANDS",
+      "destination_ABBR": "(AMS)",
+      "destination": "Amsterdam",
+      "short_description": "History & Culture - Safari",
+      "description": "Amsterdam has all the hallmarks of a winning destination – abundant cultural offerings, a vibrant music scene and a dynamic gourmet offering."
+    },
+    {
+      "id": 8,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/ATH/810x270.jpg",
+      "destination_title": "GREECE",
+      "destination_ABBR": "(ATH)",
+      "destination": "Athens",
+      "short_description": "History & Culture - Safari - Golf",
+      "description": "Amsterdam has all the hallmarks of a winning destination – abundant cultural offerings, a vibrant music scene and a dynamic gourmet offering."
+    },
+    {
+      "id": 9,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/AKL/810x270.jpg",
+      "destination_title": "NEW ZELANDS",
+      "destination_ABBR": "(AKL)",
+      "destination": "Auckland",
+      "short_description": "History & Culture - City - Shop",
+      "description": "Auckland has all the hallmarks of a winning destination – abundant cultural offerings, a vibrant music scene and a dynamic gourmet offering."
+    },
+    {
+      "id": 10,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/BGW/810x270.jpg",
+      "destination_title": "IRAQ",
+      "destination_ABBR": "(BGW)",
+      "destination": "Baghdad",
+      "short_description": "History & Culture - Safari - Golf",
+      "description": "Baghdad has all the hallmarks of a winning destination – abundant cultural offerings, a vibrant music scene and a dynamic gourmet offering."
+    },
+    {
+      "id": 11,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/BAH/810x270.jpg",
+      "destination_title": "BAHRAIN",
+      "destination_ABBR": "(BAH)",
+      "destination": "BAHRAIN",
+      "short_description": "",
+      "description": "BAHRAIN has all the hallmarks of a winning destination – abundant cultural offerings, a vibrant music scene and a dynamic gourmet offering."
+    },
+    {
+      "id": 12,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/DPS/810x270.jpg",
+      "destination_title": "INDONESIA",
+      "destination_ABBR": "(BAH)",
+      "destination": "BALI",
+      "short_description": "History & Culture - Nature & Scenery - Beach",
+      "description": "BALI has all the hallmarks of a winning destination – abundant cultural offerings, a vibrant music scene and a dynamic gourmet offering."
+    },
+    {
+      "id": 13,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/BKK/810x270.jpg",
+      "destination_title": "THAILAND",
+      "destination_ABBR": "(BKK)",
+      "destination": "Bangkok",
+      "short_description": "History & Culture - City - Shop",
+      "description": "Bangkok has all the hallmarks of a winning destination – abundant cultural offerings, a vibrant music scene and a dynamic gourmet offering."
+    },
+    {
+      "id": 14,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/BCN/810x270.jpg",
+      "destination_title": "SPAIN",
+      "destination_ABBR": "(BCN)",
+      "destination": "BERCELONA",
+      "short_description": "History & Culture - Nature & Scenery - City",
+      "description": "BERCELONA has all the hallmarks of a winning destination – abundant cultural offerings, a vibrant music scene and a dynamic gourmet offering."
+    },
+    {
+      "id": 15,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/BNE/810x270.jpg",
+      "destination_title": "UNITED STATES",
+      "destination_ABBR": "(BCN)",
+      "destination": "BOSTON",
+      "short_description": "History & Culture - City - Shop & Indulge",
+      "description": "BAHRAIN has all the hallmarks of a winning destination – abundant cultural offerings, a vibrant music scene and a dynamic gourmet offering."
+    },
+    {
+      "id": 16,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/BNE/810x270.jpg",
+      "destination_title": "AUSTRALIA",
+      "destination_ABBR": "(BNE)",
+      "destination": "BOSTON",
+      "short_description": "History & Culture - City - Shop & Indulge - Nature",
+      "description": "BAHRAIN has all the hallmarks of a winning destination – abundant cultural offerings, a vibrant music scene and a dynamic gourmet offering."
+    },
+    {
+      "id": 17,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/DMM/810x270.jpg",
+      "destination_title": "SAUDI ARABIA",
+      "destination_ABBR": "(DMM)",
+      "destination": "DAMMAM",
+      "short_description": "",
+      "description": "BAHRAIN has all the hallmarks of a winning destination – abundant cultural offerings, a vibrant music scene and a dynamic gourmet offering."
+    },
+    {
+      "id": 18,
+      "media_image": "https://c.ekstatic.net/shared/images/destination/v1/airports/BNE/810x270.jpg",
+      "destination_title": "UNITED STATES",
+      "destination_ABBR": "(BCN)",
+      "destination": "Dallas",
+      "short_description": "City - Shop & Indulge",
+      "description": "Dallas has all the hallmarks of a winning destination – abundant cultural offerings, a vibrant music scene and a dynamic gourmet offering."
+    }
+  ]
+}

@@ -20,10 +20,9 @@ const Navbar = () => {
       <NavbarGrid
         py={3}
         container
-        direction="column"
-        justifyContent="center"
+        direction="row"
+        justifyContent="space-between"
         alignItems="center"
-        sx={{ position: "relative" }}
       >
         <Box className="navbarBrand">
           <Link to="/">
@@ -36,7 +35,10 @@ const Navbar = () => {
             </Typography>
           </Link>
         </Box>
-        <Box className="navbar-item">
+        <Box
+          className="navbar-item"
+          sx={{ display: "flex", alignItems: "center" }}
+        >
           <List sx={{ display: "flex", flexDirection: "row" }}>
             <ListItem>
               <Link to="/">Home</Link>
@@ -48,36 +50,33 @@ const Navbar = () => {
               <Link to="/exprience">Exprience</Link>
             </ListItem>
           </List>
-        </Box>
-        <Box
-          className="accountBox"
-          sx={{ position: "absolute", right: 0, top: "auto" }}
-        >
-          {!user?.email ? (
-            <>
-              <Link to="/login">Login</Link>
-              <Link to="/registration">Register</Link>
-            </>
-          ) : (
-            <>
-              <Box sx={{ display: "flex" }}>
-                <Box
-                  component="img"
-                  sx={{
-                    height: 35,
-                    width: 35,
-                    marginRight: "10px",
-                    borderRadius: "50px",
-                  }}
-                  src={user?.photoURL}
-                  alt="The house from the offer."
-                />
-                <Link onClick={logOut} type="button">
-                  Log out
-                </Link>
-              </Box>
-            </>
-          )}
+          <Box className="accountBox">
+            {!user?.email ? (
+              <>
+                <Link to="/login">Login</Link>
+                <Link to="/registration">Register</Link>
+              </>
+            ) : (
+              <>
+                <Box sx={{ display: "flex" }}>
+                  <Box
+                    component="img"
+                    sx={{
+                      height: 35,
+                      width: 35,
+                      marginRight: "10px",
+                      borderRadius: "50px",
+                    }}
+                    src={user?.photoURL}
+                    alt="The house from the offer."
+                  />
+                  <Link onClick={logOut} type="button">
+                    Log out
+                  </Link>
+                </Box>
+              </>
+            )}
+          </Box>
         </Box>
       </NavbarGrid>
     </Container>

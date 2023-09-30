@@ -1,3 +1,11 @@
+import { Button } from "@mui/material";
+import styled from "styled-components";
+import { createTheme } from "@mui/material/styles";
+
+// export const theme = createTheme({
+
+// })
+
 export const COLORS = {
   WHITE: "#FFFFFF",
   WHITE_LIGHT: "#D7D7D7",
@@ -10,6 +18,7 @@ export const COLORS = {
   OLIV: "#808000",
   AQUA: "#00FFFF",
   BLUE: "#0000FF",
+  BLUE1: "#0463CA",
   RED: "#FF0000",
 };
 
@@ -52,4 +61,28 @@ export const IMAGES = {
   LOGIN_BANNER: "",
   USER_PHOTO: "https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png",
   REGISTER_BANNER: "",
+  FARE_DEAL_DELHI:
+    "https://c.fareportal.com/gcms/portals/2/images/destinations/DEL-rx.jpg",
+  FARE_DEAL_MANILA:
+    "https://c.fareportal.com/gcms/portals/2/images/destinations/MNL-rx.jpg",
+  FARE_DEAL_DENPASARBALI:
+    "https://c.fareportal.com/gcms/portals/2/images/destinations/DPS-rx.jpg",
 };
+
+export const CustomButton = styled(Button)`
+  padding: 8px;
+  background-color: ${COLORS.BLACK1};
+  font-size: 14px;
+  mask-position: 0 0;
+  -webkit-mask-position: 0 0;
+  transition: 0.5s;
+  text-transform: uppercase;
+  button:hover {
+    mask: linear-gradient(135deg, #000c 40%, #000, #000c 60%) 100% 100%/250%
+      250%;
+    -webkit-mask: linear-gradient(135deg, #000c 40%, #000, #000c 60%) 100% 100%/250%
+      250%;
+
+    background-color: ${COLORS.BLUE1};
+  }
+`;

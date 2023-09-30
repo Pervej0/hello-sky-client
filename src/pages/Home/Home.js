@@ -3,18 +3,28 @@ import { IMAGES } from "../../Styles/constants";
 import SearchTab from "../../Components/Searchbar/SearchTab";
 import Navbar from "../../Components/Navbar/Navbar";
 import BannerContainer from "../../Components/BannerContainer/BannerContainer";
+import ExplorePosts from "../../Components/ExplorePosts/ExplorePosts";
+import Subscription from "../../Components/Subscription/Subscription";
+import LowFareTrip from "../../Components/LowFareTrips/LowFareTrips";
+import Travelling from "../../Components/Travelling/Travelling";
 
 const Home = () => {
   return (
-    <BannerContainer
-      URL={IMAGES.HOME_BANNER}
-      height="100vh"
-      position="center"
-      maxWidth="true"
-    >
-      <Navbar />
-      <SearchTab />
-    </BannerContainer>
+    <>
+      <BannerContainer
+        URL={IMAGES.HOME_BANNER}
+        height="100vh"
+        position="center"
+        maxWidth="true"
+      >
+        <Navbar />
+        <SearchTab />
+      </BannerContainer>
+      <LowFareTrip />
+      <Travelling showDesc={false} />
+      <ExplorePosts />
+      <Subscription />
+    </>
   );
 };
 

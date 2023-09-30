@@ -19,9 +19,10 @@ const SearchTab = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   return (
     <Container>
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: "100%", marginTop: "60px" }}>
         <Box
           sx={{
             borderBottom: 1,
