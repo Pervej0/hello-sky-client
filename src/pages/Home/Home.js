@@ -22,7 +22,7 @@ const Home = () => {
       </BannerContainer>
       <LowFareTrip />
       <Travelling showDesc={false} />
-      <ExplorePosts />
+      <ExplorePosts showSlide={false} />
       <Subscription />
     </>
   );

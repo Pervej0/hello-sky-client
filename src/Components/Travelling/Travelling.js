@@ -1,19 +1,73 @@
-import { Box, Container, Grid, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FONTS } from "../../Styles/constants";
 import Travel from "./Travel/Travel";
+import { Link } from "react-router-dom";
 
 const Travelling = (props) => {
-  const [travelList, setTravelList] = useState([]);
+  const [originalTravelLists, setOriginalTravelLists] = useState([]);
+  const [travelLists, setTravelLists] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [inputValue, setInputValue] = useState("");
+  const [count, setCount] = useState({
+    startCount: 0,
+    endCount: 6,
+  });
 
   useEffect(() => {
     fetch("http://localhost:5000/travels_destination")
       .then((res) => res.json())
-      .then((data) => setTravelList(data[0].details));
+      .then((data) => {
+        setOriginalTravelLists(data);
+        setTravelLists(data);
+        setIsLoading(false);
+      });
   }, []);
 
-  const handleChange = () => {};
+  const handleChange = (e) => {
+    const value = e.target.value.toLowerCase();
+    setInputValue(value);
+
+    if (value === "") {
+      setTravelLists(originalTravelLists); // Restore original data
+      return;
+    }
+
+    const filterList = originalTravelLists.filter((data) => {
+      return (
+        data.destination_title.toLowerCase().includes(value) ||
+        data.destination.toLowerCase().includes(value)
+      );
+    });
+
+    setTravelLists(filterList);
+  };
+
+  const handlePagination = (e) => {
+    if (
+      e.target.innerText === "NEXT" &&
+      count.endCount <= originalTravelLists.length
+    ) {
+      setCount((prev) => ({
+        startCount: prev.startCount + 6,
+        endCount: prev.endCount + 6,
+      }));
+    } else if (e.target.innerText === "PREVIOUS" && count.startCount !== 0) {
+      setCount((prev) => ({
+        startCount: prev.startCount - 6,
+        endCount: prev.endCount - 6,
+      }));
+    }
+  };
+
   return (
     <Container sx={{ my: 6 }}>
       <CustomContent sx={{ mb: 5 }}>
@@ -34,26 +88,42 @@ const Travelling = (props) => {
             type="text"
             placeholder="Enter Location"
             name="location"
-            onChange={handleChange()}
+            onChange={handleChange}
+            value={inputValue}
           />
         </Box>
       )}
       <Box sx={{ mt: 6 }}>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={4}>
-            <Travel />
-          </Grid>
-          {props.fromHome ? (
-            <>
-              <Grid item xs={12} md={3}>
-                <Travel />
-              </Grid>
-            </>
-          ) : (
-            <Grid item xs={12} md={4}>
-              <Travel />
+          {travelLists?.slice(count.startCount, count.endCount).map((data) => (
+            <Grid key={data._id} item xs={12} sm={6} md={4}>
+              <Travel item={data} />
             </Grid>
-          )}
+          ))}
+          <ButtonField>
+            {!props.showDesc ? (
+              <Link to="/experience">
+                <Button variant="outlined">See More</Button>
+              </Link>
+            ) : (
+              <>
+                <Button
+                  type="button"
+                  variant="outlined"
+                  onClick={handlePagination}
+                >
+                  Previous
+                </Button>
+                <Button
+                  type="button"
+                  variant="outlined"
+                  onClick={handlePagination}
+                >
+                  Next
+                </Button>
+              </>
+            )}
+          </ButtonField>
         </Grid>
       </Box>
     </Container>
@@ -92,6 +162,17 @@ const CustomTextField = styled(TextField)`
   }
   @media only screen and (max-width: 525px) {
     width: 100%;
+  }
+`;
+
+const ButtonField = styled(Box)`
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  button {
+    margin-left: 16px;
   }
 `;
 

@@ -1,38 +1,49 @@
-import { Box, Card, Container, Typography } from "@mui/material";
+import { Box, Button, Card, Typography } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
 import { COLORS, FONTS } from "../../../Styles/constants";
+import { Link, useNavigate } from "react-router-dom";
 
 const Travel = (props) => {
+  const {
+    media_image,
+    destination_title,
+    short_description,
+    destination,
+    _id,
+  } = props.item;
+
   return (
-    <Container>
-      <TravelCard>
-        <Box>
-          <img
-            style={{ objectFit: "contain" }}
-            src="https://c.ekstatic.net/shared/images/destination/v1/airports/ABJ/810x270.jpg"
-            alt="location media"
-            width="100%"
-            height="auto"
-          />
-        </Box>
-        <ContentBox className="travelContent">
-          <Typography variant="span" component="span">
-            United Kingdom
-          </Typography>
-          <Typography variant="h5" component="h5">
-            London
-          </Typography>
-          <Typography variant="p" component="p">
-            Helo London
-          </Typography>
-        </ContentBox>
-      </TravelCard>
-    </Container>
+    <TravelCard>
+      <Box>
+        <img
+          style={{ objectFit: "contain" }}
+          src={media_image}
+          alt="location media"
+          width="100%"
+          height="auto"
+        />
+      </Box>
+      <ContentBox className="travelContent">
+        <Typography variant="span" component="span">
+          {destination_title}
+        </Typography>
+        <Typography variant="h5" component="h5">
+          {destination}
+        </Typography>
+        <Typography variant="p" component="p">
+          {short_description}
+        </Typography>
+        <Link to={`/experience/${_id}`} style={{ textDecoration: "none" }}>
+          <Button variant="outlined">Book Now</Button>
+        </Link>
+      </ContentBox>
+    </TravelCard>
   );
 };
 
 const TravelCard = styled(Card)`
+  height: 330px;
   :hover {
     box-shadow: 0px 6px 5px 0px rgba(52, 73, 94, 0.5);
   }
@@ -54,6 +65,7 @@ const ContentBox = styled(Box)`
     margin: 10px 0px 15px 0px;
   }
   p {
+    margin-bottom: 16px;
     font-weight: 500;
   }
 `;

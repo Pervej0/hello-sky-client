@@ -10,8 +10,8 @@ const ExploreVideo = () => {
         <Grid item sm={6} xs={12}></Grid>
         <Grid item sm={6} xs={12}>
           <ConntentBox sx={{ my: 8 }}>
-            <Typography variant="h3">The Real Exprience</Typography>
-            <Typography variant="h5">The Real Exprience</Typography>
+            <Typography variant="h3">The Real experience</Typography>
+            <Typography variant="h5">The Real experience</Typography>
             <Typography sx={{ mt: 2 }}>
               The airline was formed by former Air Vice-Marshal Don Bennett at
               Langley Airfield, Berkshire, to operate in the Berlin Airlift with

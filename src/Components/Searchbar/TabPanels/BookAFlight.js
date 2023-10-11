@@ -9,6 +9,7 @@ import {
   MenuItem,
   NativeSelect,
   Select,
+  TextField,
   Typography,
 } from "@mui/material";
 import { COLORS, FONTS } from "../../../Styles/constants";
@@ -34,11 +35,14 @@ function BookAFlight(props) {
   const { children, value, index, ...other } = props;
   const [airportList, setAirportList] = useState("");
   const [data, setData] = useState({
-    flightFrom: "Select Departure City",
-    flightTo: "Select Arrival City",
+    flightFrom: "",
+    flightTo: props.arrival,
     flightClass: "Select Flight Type",
     passangers: "1 Adults - 0 Children",
     flyDate: "",
+    fullName: "",
+    phoneNumber: "",
+    email: "",
   });
   const [countPassanger, setCountPassanger] = useState({
     adults: 1,
@@ -119,6 +123,7 @@ function BookAFlight(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(data);
+    setData(data);
   };
 
   return (
@@ -135,84 +140,97 @@ function BookAFlight(props) {
           sx={{ p: 3, bgcolor: COLORS.WHITE, paddingBottom: "30px" }}
         >
           <form onSubmit={handleSubmit}>
-            <Grid container spacing={4}>
+            <Grid container spacing={2}>
               <Grid item sm={6} xs={12}>
-                <FormControl fullWidth>
-                  <InputLabel
-                    id="demo-simple-select-label"
-                    sx={{ fontSize: "20px" }}
-                  >
-                    Flying From
-                  </InputLabel>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      marginTop: "20px",
-                    }}
-                  >
-                    <ListItemIcon className="iconBox">
-                      <FlightTakeoffIcon sx={{ paddingRight: "5px" }} />
-                    </ListItemIcon>
-                    <Select
-                      sx={{ width: "100%", border: 0 }}
-                      labelId="Flying From"
-                      id="demo-simple-select"
-                      value={data.flightFrom}
-                      placeholder="Select Departure City"
-                      onChange={handleChange}
-                      name="flightFrom"
-                    >
-                      <MenuItem value={data.flightFrom}>
-                        {data.flightFrom}
-                      </MenuItem>
-                      <MenuItem value="Dhaka">Dhaka</MenuItem>
-                      <MenuItem value="Delhi">Delhi</MenuItem>
-                      <MenuItem value="Toronto">Toronto</MenuItem>
-                      <MenuItem value="Dubai">Dubai</MenuItem>
-                    </Select>
-                  </Box>
-                </FormControl>
+                <InputLabel id="demo-simple-select-label">
+                  Flying From
+                </InputLabel>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <ListItemIcon className="iconBox">
+                    <FlightTakeoffIcon sx={{ paddingRight: "5px" }} />
+                  </ListItemIcon>
+                  <TextField
+                    sx={{ width: "100%", border: 0 }}
+                    labelid="Flying From"
+                    id="demo-simple-select"
+                    value={data.flightFrom}
+                    placeholder="Enter Departure City"
+                    onChange={handleChange}
+                    name="flightFrom"
+                  />
+                </Box>
               </Grid>
               <Grid item sm={6} xs={12}>
-                <FormControl fullWidth>
-                  <InputLabel
-                    id="demo-simple-select-label"
-                    sx={{ fontSize: "20px" }}
-                  >
-                    Flying to
-                  </InputLabel>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      marginTop: "20px",
-                    }}
-                  >
-                    <ListItemIcon className="iconBox">
-                      <FlightLandIcon />
-                    </ListItemIcon>
-                    <Select
-                      sx={{ width: "100%", border: "0px" }}
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={data.flightTo}
-                      onChange={handleChange}
-                      name="flightTo"
-                    >
-                      <MenuItem value={data.flightTo} sx={{ display: "none" }}>
-                        {data.flightTo}
-                      </MenuItem>
-                      <MenuItem value="Dhaka">Dhaka</MenuItem>
-                      <MenuItem value="Delhi">Delhi</MenuItem>
-                      <MenuItem value="Toronto">Toronto</MenuItem>
-                      <MenuItem value="Dubai">Dubai</MenuItem>
-                    </Select>
-                  </Box>
-                </FormControl>
+                <InputLabel id="demo-simple-select-label">Flying to</InputLabel>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <ListItemIcon className="iconBox">
+                    <FlightLandIcon />
+                  </ListItemIcon>
+                  <TextField
+                    sx={{ width: "100%", border: "0px" }}
+                    labelid="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={data.flightTo}
+                    placeholder="Enter Arrival City"
+                    onChange={handleChange}
+                    name="flightTo"
+                  />
+                </Box>
+              </Grid>
+              {/* personal info */}
+              <Grid item sm={4} xs={12}>
+                <InputLabel id="demo-simple-select-label">Full Name</InputLabel>
+                <TextField
+                  sx={{ width: "100%", border: "0px" }}
+                  labelid="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={data.fullName}
+                  placeholder="Enter Name"
+                  onChange={handleChange}
+                  name="fullName"
+                />
+              </Grid>
+              <Grid item sm={4} xs={12}>
+                <InputLabel id="demo-simple-select-label">
+                  Phone Number
+                </InputLabel>
+                <TextField
+                  sx={{ width: "100%", border: "0px" }}
+                  labelid="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={data.phoneNumber}
+                  placeholder="Enter Phone No"
+                  onChange={handleChange}
+                  name="phoneNumber"
+                  required
+                />
+              </Grid>
+              <Grid item sm={4} xs={12}>
+                <InputLabel id="demo-simple-select-label">Email</InputLabel>
+                <TextField
+                  sx={{ width: "100%", border: "0px" }}
+                  labelid="demo-simple-select-label"
+                  id="demo-simple-select"
+                  type="email"
+                  value={data.email}
+                  placeholder="Enter Email"
+                  onChange={handleChange}
+                  required
+                  name="email"
+                />
               </Grid>
               {/* date */}
-              <Grid item sm={3} xs={12}>
+              <Grid item xs={12} sm={6} md={3}>
                 <Box sx={{ with: "100%" }}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <InputLabel>Depart Date (D-M-Y)</InputLabel>
@@ -234,8 +252,9 @@ function BookAFlight(props) {
 
               <Grid
                 item
-                sm={3}
                 xs={12}
+                sm={6}
+                md={3}
                 sx={{ position: "relative", left: 0, top: 0 }}
               >
                 <InputLabel id="demo-simple-select-label">
@@ -368,12 +387,12 @@ function BookAFlight(props) {
                 </Dropdown>
               </Grid>
               {/* Class */}
-              <Grid item sm={3} xs={12}>
+              <Grid item xs={12} sm={6} md={3}>
                 <InputLabel id="demo-simple-select-label">Class</InputLabel>
 
                 <Select
                   sx={{ width: "100%" }}
-                  labelId="demo-simple-select-label"
+                  labelid="demo-simple-select-label"
                   id="demo-simple-select"
                   value={data.flightClass}
                   onChange={handleChange}
@@ -387,7 +406,7 @@ function BookAFlight(props) {
                   <MenuItem value="Business">Business</MenuItem>
                 </Select>
               </Grid>
-              <Grid item sm={3} xs={12}>
+              <Grid item xs={12} sm={6} md={3}>
                 <Button
                   type="submit"
                   variant="contained"
@@ -434,6 +453,12 @@ const BookAFlightContainer = styled(Box)`
     display: inline-block;
     margin-bottom: 10px;
     color: ${COLORS.GRAY1};
+  }
+
+  @media only screen and (max-width: 600px) {
+    .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+      width: 100%;
+    }
   }
 `;
 

@@ -12,7 +12,6 @@ import {
 import { COLORS, FONTS } from "../../../Styles/constants";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import FlightLandIcon from "@mui/icons-material/FlightLand";
-import SendTwoToneIcon from "@mui/icons-material/FlightLand";
 import styled from "styled-components";
 import { useState } from "react";
 

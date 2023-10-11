@@ -4,11 +4,11 @@ import { IMAGES } from "../../Styles/constants";
 import Navbar from "../../Components/Navbar/Navbar";
 import Travelling from "../../Components/Travelling/Travelling";
 
-const Exprience = () => {
+const Experience = () => {
   return (
     <>
       <BannerContainer
-        URL={IMAGES.EXPRIENCE_BANNER}
+        URL={IMAGES.experience_BANNER}
         height="50vh"
         position="center"
       >
@@ -19,4 +19,4 @@ const Exprience = () => {
   );
 };
 
-export default Exprience;
+export default Experience;

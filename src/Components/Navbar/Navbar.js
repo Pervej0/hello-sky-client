@@ -47,7 +47,7 @@ const Navbar = () => {
               <Link to="/explore">Explore</Link>
             </ListItem>
             <ListItem>
-              <Link to="/exprience">Exprience</Link>
+              <Link to="/experience">Experience</Link>
             </ListItem>
           </List>
           <Box className="accountBox">
