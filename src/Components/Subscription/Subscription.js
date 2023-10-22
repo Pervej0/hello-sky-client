@@ -25,7 +25,7 @@ const handleSubmit = () => {};
 const Subscription = () => {
   return (
     <div style={{ background: COLORS.BLACK1 }}>
-      <Container sx={{ padding: "15px 0px" }}>
+      <Container sx={{ padding: "15px 0px", paddingBottom: "4rem" }}>
         <ContentTitle value="News & Subscription" color="white" />
         <Grid container spacing={2}>
           <Grid item sm={6} xs={12}>

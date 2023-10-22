@@ -1,4 +1,3 @@
-import { Container } from "@mui/material";
 import React from "react";
 import Navbar from "../../Components/Navbar/Navbar";
 import BannerContainer from "../../Components/BannerContainer/BannerContainer";
@@ -16,6 +15,7 @@ const Explore = () => {
       >
         <Navbar />
       </BannerContainer>
+
       <ExploreVideo />
       <ExplorePosts showSlide={true} />
     </>

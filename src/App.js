@@ -17,6 +17,7 @@ import AuthProvider from "./Context/AuthProvider";
 import useFirebase from "./Hooks/useFirebase";
 import TravelBook from "./Components/Travelling/Travel/TravelBook";
 import SinglePost from "./Components/ExplorePosts/SinglePost/SinglePost";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   const { user } = useFirebase();
@@ -31,9 +32,9 @@ function App() {
           <Route path="/experience" element={<Experience />} />
           <Route path="/experience/:listId" element={<TravelBook />} />
           <Route path="/login" element={<Login />} />
-
           <Route path="/registration" element={<Registration />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </AuthProvider>
   );

@@ -19,7 +19,9 @@ export const COLORS = {
   AQUA: "#00FFFF",
   BLUE: "#0000FF",
   BLUE1: "#0463CA",
+  BLUE2: "#0866FF",
   RED: "#FF0000",
+  RED1: "#E84A52",
 };
 
 export const FONTS = {

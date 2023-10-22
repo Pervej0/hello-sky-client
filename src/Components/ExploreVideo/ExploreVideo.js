@@ -2,14 +2,26 @@ import { Box, Container, Grid, Typography } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
 import { FONTS } from "../../Styles/constants";
+import ExpVideo from "../../images/explore/explore.mp4";
 
 const ExploreVideo = () => {
   return (
-    <Container>
-      <Grid container spacing={2} sx={{ alignItems: "center" }}>
-        <Grid item sm={6} xs={12}></Grid>
-        <Grid item sm={6} xs={12}>
-          <ConntentBox sx={{ my: 8 }}>
+    <MainContent>
+      <Grid container spacing={4} sx={{ alignItems: "center" }}>
+        <Grid item sm={6} xs={12} sx={{ my: 4 }} className="girdItem video">
+          <video
+            style={{ objectFit: "cover" }}
+            width="100%"
+            height="100%"
+            controls
+            loop
+            autoPlay="true"
+          >
+            <source src={ExpVideo} />
+          </video>
+        </Grid>
+        <Grid item sm={6} xs={12} sx={{ my: 8 }} className="gridItem">
+          <ConntentBox>
             <Typography variant="h3">The Real experience</Typography>
             <Typography variant="h5">The Real experience</Typography>
             <Typography sx={{ mt: 2 }}>
@@ -35,10 +47,27 @@ const ExploreVideo = () => {
           </ConntentBox>
         </Grid>
       </Grid>
-    </Container>
+    </MainContent>
   );
 };
 
+const MainContent = styled(Container)`
+  .girdItem {
+    height: 90vh;
+    @media only screen and (max-width: 900px) {
+      height: auto;
+    }
+    @media only screen and (max-width: 900px) {
+      height: auto;
+      padding: 0 auto;
+    }
+  }
+  .girdItem.video {
+    @media only screen and (max-width: 600px) {
+      height: 100vh;
+    }
+  }
+`;
 const ConntentBox = styled(Box)`
   h3,
   h5 {
@@ -46,6 +75,14 @@ const ConntentBox = styled(Box)`
   }
   p {
     font-family: ${FONTS.SECONDARY};
+  }
+  @media only screen and (max-width: 900px) {
+    h3 {
+      font-size: 30px;
+    }
+    h5 {
+      font-size: 20px;
+    }
   }
 `;
 

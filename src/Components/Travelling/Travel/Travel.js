@@ -2,7 +2,7 @@ import { Box, Button, Card, Typography } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
 import { COLORS, FONTS } from "../../../Styles/constants";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Travel = (props) => {
   const {
@@ -46,6 +46,10 @@ const TravelCard = styled(Card)`
   height: 330px;
   :hover {
     box-shadow: 0px 6px 5px 0px rgba(52, 73, 94, 0.5);
+  }
+
+  @media only screen and (max-width: 600px) {
+    height: 330px;
   }
 `;
 
