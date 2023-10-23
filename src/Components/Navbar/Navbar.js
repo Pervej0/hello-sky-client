@@ -11,77 +11,97 @@ import { Link } from "react-router-dom";
 import { COLORS, CustomTypography, FONTS } from "../../Styles/constants";
 import styled from "styled-components";
 import { useAuth } from "../../Hooks/useAuth";
+import MobileBar from "../MobileBar/MobileBar";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
 
   return (
-    <Container>
-      <NavbarGrid
-        py={3}
-        container
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Box className="navbarBrand">
-          <Link to="/">
-            <Typography
-              sx={{
-                fontWeight: "bold",
-              }}
-            >
-              Hello Sky
-            </Typography>
-          </Link>
-        </Box>
-        <Box
-          className="navbar-item"
-          sx={{ display: "flex", alignItems: "center" }}
+    <MainContainer>
+      <Box className="mobileBar">
+        <MobileBar />
+      </Box>
+      <Box className="desktopBar">
+        <NavbarGrid
+          py={3}
+          container
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
         >
-          <List sx={{ display: "flex", flexDirection: "row" }}>
-            <ListItem>
-              <Link to="/">Home</Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/explore">Explore</Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/experience">Experience</Link>
-            </ListItem>
-          </List>
-          <Box className="accountBox">
-            {!user?.email ? (
-              <>
-                <Link to="/login">Login</Link>
-                <Link to="/registration">Register</Link>
-              </>
-            ) : (
-              <>
-                <Box sx={{ display: "flex" }}>
-                  <Box
-                    component="img"
-                    sx={{
-                      height: 35,
-                      width: 35,
-                      marginRight: "10px",
-                      borderRadius: "50px",
-                    }}
-                    src={user?.photoURL}
-                    alt="The house from the offer."
-                  />
-                  <Link onClick={logOut} type="button">
-                    Log out
-                  </Link>
-                </Box>
-              </>
-            )}
+          <Box className="navbarBrand">
+            <Link to="/">
+              <Typography
+                sx={{
+                  fontWeight: "bold",
+                }}
+              >
+                Hello Sky
+              </Typography>
+            </Link>
           </Box>
-        </Box>
-      </NavbarGrid>
-    </Container>
+          <Box
+            className="navbar-item"
+            sx={{ display: "flex", alignItems: "center" }}
+          >
+            <List sx={{ display: "flex", flexDirection: "row" }}>
+              <ListItem>
+                <Link to="/">Home</Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/explore">Explore</Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/experience">Experience</Link>
+              </ListItem>
+            </List>
+            <Box className="accountBox">
+              {!user?.email ? (
+                <>
+                  <Link to="/login">Login</Link>
+                  <Link to="/registration">Register</Link>
+                </>
+              ) : (
+                <>
+                  <Box sx={{ display: "flex" }}>
+                    <Box
+                      component="img"
+                      sx={{
+                        height: 35,
+                        width: 35,
+                        marginRight: "10px",
+                        borderRadius: "50px",
+                      }}
+                      src={user?.photoURL}
+                      alt="The house from the offer."
+                    />
+                    <Link onClick={logOut} type="button">
+                      Log out
+                    </Link>
+                  </Box>
+                </>
+              )}
+            </Box>
+          </Box>
+        </NavbarGrid>
+      </Box>
+    </MainContainer>
   );
 };
+
+const MainContainer = styled(Container)`
+  .mobileBar {
+    display: none;
+  }
+  @media only screen and (max-width: 900px) {
+    .mobileBar {
+      display: inherit;
+    }
+    .desktopBar {
+      display: none;
+    }
+  }
+`;
 
 const NavbarGrid = styled(Grid)`
   .navbarBrand a,

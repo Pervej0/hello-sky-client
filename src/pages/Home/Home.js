@@ -7,6 +7,7 @@ import ExplorePosts from "../../Components/ExplorePosts/ExplorePosts";
 import Subscription from "../../Components/Subscription/Subscription";
 import LowFareTrip from "../../Components/LowFareTrips/LowFareTrips";
 import Travelling from "../../Components/Travelling/Travelling";
+import MobileBar from "../../Components/MobileBar/MobileBar";
 
 const Home = () => {
   return (
@@ -18,6 +19,7 @@ const Home = () => {
         maxWidth="true"
       >
         <Navbar />
+
         <SearchTab />
       </BannerContainer>
       <LowFareTrip />
