@@ -12,6 +12,7 @@ import { COLORS, CustomTypography, FONTS } from "../../Styles/constants";
 import styled from "styled-components";
 import { useAuth } from "../../Hooks/useAuth";
 import MobileBar from "../MobileBar/MobileBar";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const Navbar = () => {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
@@ -77,11 +78,10 @@ const Navbar = () => {
                         style={{
                           height: 35,
                           width: 35,
-                          marginRight: "10px",
                           borderRadius: "50px",
                         }}
                         src={user?.photoURL}
-                        alt="The house from the offer."
+                        alt="User Profile"
                       />
                     </Box>
                     {isProfileClicked && (

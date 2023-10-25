@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   FormControl,
@@ -17,11 +18,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import FlightLandIcon from "@mui/icons-material/FlightLand";
-import {
-  DateField,
-  DatePicker,
-  LocalizationProvider,
-} from "@mui/x-date-pickers";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -31,26 +28,30 @@ import { Menu } from "@mui/base/Menu";
 import { MenuButton } from "@mui/base/MenuButton";
 import dayjs from "dayjs";
 import { useAuth } from "../../../Hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 function BookAFlight(props) {
   const { children, value, index, ...other } = props;
   const { user } = useAuth();
+  const [showAlert, setShowAlert] = useState(false);
 
   const [data, setData] = useState({
     flightFrom: "",
     flightTo: props.arrival,
     flightClass: "Select Flight Type",
     passangers: "1 Adults - 0 Children",
-    flyDate: "",
-    fullName: "",
+    flyDate: dayjs(new Date()),
+    fullName: user?.displayName || "",
     phoneNumber: "",
-    email: "",
+    email: user?.email || "",
   });
   const [countPassanger, setCountPassanger] = useState({
     adults: 1,
     children: 0,
     infants: 0,
   });
+
+  const navigate = useNavigate();
 
   const handlePassangerCount = (e) => {
     if (e.target.id === "addInfants" && countPassanger.infants < 3) {
@@ -100,147 +101,189 @@ function BookAFlight(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(data);
+    if (!user) navigate("/login");
+    data.status = "Active";
     setData(data);
+    fetch("http://localhost:5000/bookings", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          setShowAlert(true);
+          setInterval(() => {
+            setShowAlert(false);
+          }, 2000);
+        }
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <BookAFlightContainer
-          className="bookAFlight"
-          sx={{ p: 3, bgcolor: COLORS.WHITE, paddingBottom: "30px" }}
-        >
-          <form onSubmit={handleSubmit}>
-            <Grid container spacing={2}>
-              <Grid item sm={6} xs={12}>
-                <InputLabel id="demo-simple-select-label">
-                  Flying From
-                </InputLabel>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <ListItemIcon className="iconBox">
-                    <FlightTakeoffIcon sx={{ paddingRight: "5px" }} />
-                  </ListItemIcon>
-                  <TextField
-                    sx={{ width: "100%", border: 0 }}
-                    labelid="Flying From"
-                    id="demo-simple-select"
-                    value={data.flightFrom}
-                    placeholder="Enter Departure City"
-                    onChange={handleChange}
-                    name="flightFrom"
-                  />
-                </Box>
-              </Grid>
-              <Grid item sm={6} xs={12}>
-                <InputLabel id="demo-simple-select-label">Flying to</InputLabel>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <ListItemIcon className="iconBox">
-                    <FlightLandIcon />
-                  </ListItemIcon>
+    <>
+      {showAlert && (
+        <Alert severity="success">
+          This is a success alert — check it out!
+        </Alert>
+      )}
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <BookAFlightContainer
+            className="bookAFlight"
+            sx={{ p: 3, bgcolor: COLORS.WHITE, paddingBottom: "30px" }}
+          >
+            <form onSubmit={handleSubmit}>
+              <Grid container spacing={2}>
+                <Grid item sm={6} xs={12}>
+                  <InputLabel id="demo-simple-select-label">
+                    Flying From
+                  </InputLabel>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <ListItemIcon className="iconBox">
+                      <FlightTakeoffIcon sx={{ paddingRight: "5px" }} />
+                    </ListItemIcon>
+                    <TextField
+                      sx={{ width: "100%", border: 0 }}
+                      labelid="Flying From"
+                      id="demo-simple-select"
+                      value={data.flightFrom}
+                      placeholder="Enter Departure City"
+                      onChange={handleChange}
+                      name="flightFrom"
+                    />
+                  </Box>
+                </Grid>
+                <Grid item sm={6} xs={12}>
+                  <InputLabel id="demo-simple-select-label">
+                    Flying to
+                  </InputLabel>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <ListItemIcon className="iconBox">
+                      <FlightLandIcon />
+                    </ListItemIcon>
+                    <TextField
+                      sx={{ width: "100%", border: "0px" }}
+                      labelid="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={data.flightTo}
+                      placeholder="Enter Arrival City"
+                      onChange={handleChange}
+                      name="flightTo"
+                    />
+                  </Box>
+                </Grid>
+                {/* personal info */}
+                <Grid item sm={4} xs={12}>
+                  <InputLabel id="demo-simple-select-label">
+                    Full Name
+                  </InputLabel>
                   <TextField
                     sx={{ width: "100%", border: "0px" }}
                     labelid="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={data.flightTo}
-                    placeholder="Enter Arrival City"
+                    value={data.fullName}
+                    placeholder="Enter Name"
                     onChange={handleChange}
-                    name="flightTo"
+                    name="fullName"
                   />
-                </Box>
-              </Grid>
-              {/* personal info */}
-              <Grid item sm={4} xs={12}>
-                <InputLabel id="demo-simple-select-label">Full Name</InputLabel>
-                <TextField
-                  sx={{ width: "100%", border: "0px" }}
-                  labelid="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={data.fullName || user?.displayName}
-                  placeholder="Enter Name"
-                  onChange={handleChange}
-                  name="fullName"
-                />
-              </Grid>
-              <Grid item sm={4} xs={12}>
-                <InputLabel id="demo-simple-select-label">
-                  Phone Number
-                </InputLabel>
-                <TextField
-                  sx={{ width: "100%", border: "0px" }}
-                  labelid="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={data.phoneNumber}
-                  placeholder="Enter Phone No"
-                  onChange={handleChange}
-                  name="phoneNumber"
-                  required
-                />
-              </Grid>
-              <Grid item sm={4} xs={12}>
-                <InputLabel id="demo-simple-select-label">Email</InputLabel>
-                <TextField
-                  sx={{ width: "100%", border: "0px" }}
-                  labelid="demo-simple-select-label"
-                  id="demo-simple-select"
-                  type="email"
-                  value={data.email || user?.email}
-                  placeholder="Enter Email"
-                  onChange={handleChange}
-                  required
-                  name="email"
-                />
-              </Grid>
-              {/* date */}
-              <Grid item xs={12} sm={6} md={3}>
-                <Box sx={{ with: "100%" }}>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <InputLabel>Depart Date (D-M-Y)</InputLabel>
+                </Grid>
+                <Grid item sm={4} xs={12}>
+                  <InputLabel id="demo-simple-select-label">
+                    Phone Number
+                  </InputLabel>
+                  <TextField
+                    sx={{ width: "100%", border: "0px" }}
+                    labelid="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={data.phoneNumber}
+                    placeholder="Enter Phone No"
+                    onChange={handleChange}
+                    name="phoneNumber"
+                    required
+                  />
+                </Grid>
+                <Grid item sm={4} xs={12}>
+                  <InputLabel id="demo-simple-select-label">Email</InputLabel>
+                  <TextField
+                    sx={{ width: "100%", border: "0px" }}
+                    labelid="demo-simple-select-label"
+                    id="demo-simple-select"
+                    type="email"
+                    value={data.email || user?.email}
+                    placeholder="Enter Email"
+                    onChange={handleChange}
+                    required
+                    name="email"
+                  />
+                </Grid>
+                {/* date */}
+                <Grid item xs={12} sm={6} md={3}>
+                  <Box sx={{ with: "100%" }}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <InputLabel>Depart Date (D-M-Y)</InputLabel>
 
-                    <DatePicker
-                      className="w-160"
-                      clearable
-                      format="DD-MM-YY"
-                      defaultValue={dayjs(new Date())}
-                      onChange={(e) =>
-                        setData((prev) => ({ ...prev, flyDate: e.$d }))
-                      }
-                      name="FlyDate"
-                    />
-                  </LocalizationProvider>
-                </Box>
-              </Grid>
-              {/* passangers */}
+                      <DatePicker
+                        className="w-160"
+                        clearable
+                        format="DD-MM-YY"
+                        defaultValue={data.flyDate}
+                        onChange={(e) =>
+                          setData((prev) => ({ ...prev, flyDate: e.$d }))
+                        }
+                        name="FlyDate"
+                      />
+                    </LocalizationProvider>
+                  </Box>
+                </Grid>
+                {/* passangers */}
 
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={3}
-                sx={{ position: "relative", left: 0, top: 0 }}
-              >
-                <InputLabel id="demo-simple-select-label">
-                  Passengers
-                </InputLabel>
-                <Dropdown>
-                  {countPassanger.children < 1 &&
-                    countPassanger.infants < 1 && (
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={3}
+                  sx={{ position: "relative", left: 0, top: 0 }}
+                >
+                  <InputLabel id="demo-simple-select-label">
+                    Passengers
+                  </InputLabel>
+                  <Dropdown>
+                    {countPassanger.children < 1 &&
+                      countPassanger.infants < 1 && (
+                        <CustomMenuButton
+                          onClick={(e) =>
+                            setData((prev) => ({
+                              ...prev,
+                              passangers: e.target.innerText,
+                            }))
+                          }
+                        >
+                          {countPassanger.adults} Adults -{" "}
+                          {countPassanger.children} Children
+                        </CustomMenuButton>
+                      )}
+                    {countPassanger.children > 0 && (
                       <CustomMenuButton
                         onClick={(e) =>
                           setData((prev) => ({
@@ -253,151 +296,142 @@ function BookAFlight(props) {
                         {countPassanger.children} Children
                       </CustomMenuButton>
                     )}
-                  {countPassanger.children > 0 && (
-                    <CustomMenuButton
-                      onClick={(e) =>
-                        setData((prev) => ({
-                          ...prev,
-                          passangers: e.target.innerText,
-                        }))
-                      }
-                    >
-                      {countPassanger.adults} Adults - {countPassanger.children}{" "}
-                      Children
-                    </CustomMenuButton>
-                  )}
-                  {countPassanger.infants > 0 && (
-                    <CustomMenuButton
-                      onClick={(e) =>
-                        setData((prev) => ({
-                          ...prev,
-                          passangers: e.target.innerText,
-                        }))
-                      }
-                    >
-                      {countPassanger.adults} Adults - {countPassanger.infants}{" "}
-                      Infants
-                    </CustomMenuButton>
-                  )}{" "}
-                  <MenuBox
-                    className="menuBox"
-                    style={{
-                      background: COLORS.WHITE,
-                      minWidth: 255,
-                      margin: "0",
-                    }}
-                  >
-                    <MenuItem
-                      value="Adults"
-                      sx={{
-                        width: "100%",
+                    {countPassanger.infants > 0 && (
+                      <CustomMenuButton
+                        onClick={(e) =>
+                          setData((prev) => ({
+                            ...prev,
+                            passangers: e.target.innerText,
+                          }))
+                        }
+                      >
+                        {countPassanger.adults} Adults -{" "}
+                        {countPassanger.infants} Infants
+                      </CustomMenuButton>
+                    )}{" "}
+                    <MenuBox
+                      className="menuBox"
+                      style={{
+                        background: COLORS.WHITE,
+                        minWidth: 255,
+                        margin: "0",
                       }}
                     >
-                      <PassengersBox>
-                        <Box className="AgeCategory">
-                          <Typography>Adults</Typography>
-                          <span>From 12 Years</span>
-                        </Box>
-                        <Box className="valueAdd">
-                          <ListItemIcon
-                            onClick={handlePassangerCount}
-                            id="addAdults"
-                          >
-                            <AddIcon fontSize="small" id="addAdults" />
-                          </ListItemIcon>
-                          <Typography>{countPassanger.adults}</Typography>
-                          <ListItemIcon
-                            onClick={handlePassangerCount}
-                            id="removeAdults"
-                          >
-                            <RemoveIcon id="removeAdults" />
-                          </ListItemIcon>
-                        </Box>
-                      </PassengersBox>
-                    </MenuItem>
-                    <MenuItem value="Children">
-                      <PassengersBox>
-                        <Box className="AgeCategory">
-                          <Typography>Children</Typography>
-                          <span>2 under 12-yrs</span>
-                        </Box>
-                        <Box className="valueAdd">
-                          <ListItemIcon
-                            onClick={handlePassangerCount}
-                            id="addChildren"
-                          >
-                            <AddIcon fontSize="small" id="addChildren" />
-                          </ListItemIcon>
-                          <Typography>{countPassanger.children}</Typography>
-                          <ListItemIcon
-                            onClick={handlePassangerCount}
-                            id="removeChildren"
-                          >
-                            <RemoveIcon fontSize="small" id="removeChildren" />
-                          </ListItemIcon>
-                        </Box>
-                      </PassengersBox>
-                    </MenuItem>
-                    <MenuItem value="Infants">
-                      <PassengersBox>
-                        <Box className="AgeCategory">
-                          <Typography>Infants</Typography>
-                          <span>under 2 years</span>
-                        </Box>
-                        <Box className="valueAdd">
-                          <ListItemIcon
-                            onClick={handlePassangerCount}
-                            id="addInfants"
-                          >
-                            <AddIcon fontSize="small" id="addInfants" />
-                          </ListItemIcon>
-                          <Typography>{countPassanger.infants}</Typography>
-                          <ListItemIcon
-                            onClick={handlePassangerCount}
-                            id="addInfants"
-                          >
-                            <RemoveIcon fontSize="small" id="removeInfants" />
-                          </ListItemIcon>
-                        </Box>
-                      </PassengersBox>
-                    </MenuItem>
-                  </MenuBox>
-                </Dropdown>
-              </Grid>
-              {/* Class */}
-              <Grid item xs={12} sm={6} md={3}>
-                <InputLabel id="demo-simple-select-label">Class</InputLabel>
+                      <MenuItem
+                        value="Adults"
+                        sx={{
+                          width: "100%",
+                        }}
+                      >
+                        <PassengersBox>
+                          <Box className="AgeCategory">
+                            <Typography>Adults</Typography>
+                            <span>From 12 Years</span>
+                          </Box>
+                          <Box className="valueAdd">
+                            <ListItemIcon
+                              onClick={handlePassangerCount}
+                              id="addAdults"
+                            >
+                              <AddIcon fontSize="small" id="addAdults" />
+                            </ListItemIcon>
+                            <Typography>{countPassanger.adults}</Typography>
+                            <ListItemIcon
+                              onClick={handlePassangerCount}
+                              id="removeAdults"
+                            >
+                              <RemoveIcon id="removeAdults" />
+                            </ListItemIcon>
+                          </Box>
+                        </PassengersBox>
+                      </MenuItem>
+                      <MenuItem value="Children">
+                        <PassengersBox>
+                          <Box className="AgeCategory">
+                            <Typography>Children</Typography>
+                            <span>2 under 12-yrs</span>
+                          </Box>
+                          <Box className="valueAdd">
+                            <ListItemIcon
+                              onClick={handlePassangerCount}
+                              id="addChildren"
+                            >
+                              <AddIcon fontSize="small" id="addChildren" />
+                            </ListItemIcon>
+                            <Typography>{countPassanger.children}</Typography>
+                            <ListItemIcon
+                              onClick={handlePassangerCount}
+                              id="removeChildren"
+                            >
+                              <RemoveIcon
+                                fontSize="small"
+                                id="removeChildren"
+                              />
+                            </ListItemIcon>
+                          </Box>
+                        </PassengersBox>
+                      </MenuItem>
+                      <MenuItem value="Infants">
+                        <PassengersBox>
+                          <Box className="AgeCategory">
+                            <Typography>Infants</Typography>
+                            <span>under 2 years</span>
+                          </Box>
+                          <Box className="valueAdd">
+                            <ListItemIcon
+                              onClick={handlePassangerCount}
+                              id="addInfants"
+                            >
+                              <AddIcon fontSize="small" id="addInfants" />
+                            </ListItemIcon>
+                            <Typography>{countPassanger.infants}</Typography>
+                            <ListItemIcon
+                              onClick={handlePassangerCount}
+                              id="addInfants"
+                            >
+                              <RemoveIcon fontSize="small" id="removeInfants" />
+                            </ListItemIcon>
+                          </Box>
+                        </PassengersBox>
+                      </MenuItem>
+                    </MenuBox>
+                  </Dropdown>
+                </Grid>
+                {/* Class */}
+                <Grid item xs={12} sm={6} md={3}>
+                  <InputLabel id="demo-simple-select-label">Class</InputLabel>
 
-                <Select
-                  sx={{ width: "100%" }}
-                  labelid="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={data.flightClass}
-                  onChange={handleChange}
-                  name="flightClass"
-                >
-                  <MenuItem value={data.flightClass} sx={{ display: "none" }}>
-                    {data.flightClass}
-                  </MenuItem>
-                  <MenuItem value="Economy">Economy</MenuItem>
-                  <MenuItem value="Premium Economy">Premium Economy</MenuItem>
-                  <MenuItem value="Business">Business</MenuItem>
-                </Select>
+                  <Select
+                    sx={{ width: "100%" }}
+                    labelid="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={data.flightClass}
+                    onChange={handleChange}
+                    name="flightClass"
+                  >
+                    <MenuItem value={data.flightClass} sx={{ display: "none" }}>
+                      {data.flightClass}
+                    </MenuItem>
+                    <MenuItem value="Economy">Economy</MenuItem>
+                    <MenuItem value="Premium Economy">Premium Economy</MenuItem>
+                    <MenuItem value="Business">Business</MenuItem>
+                  </Select>
+                </Grid>
+                <Grid item xs={12} sm={6} md={3}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{ width: "100%", marginTop: "36px", height: "55px" }}
+                  >
+                    <SendTwoToneIcon /> &nbsp; Book A Flight
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={6} md={3}>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  sx={{ width: "100%", marginTop: "36px", height: "55px" }}
-                >
-                  <SendTwoToneIcon /> &nbsp; Show Flights
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-        </BookAFlightContainer>
-      )}
-    </div>
+            </form>
+          </BookAFlightContainer>
+        )}
+      </div>
+    </>
   );
 }
 

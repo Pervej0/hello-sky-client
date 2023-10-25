@@ -19,7 +19,6 @@ const Login = () => {
 
   const { from } = location.state || { from: { pathname: "/" } };
 
-  console.log(location, from, "xxxxxxxxxx");
   const handleSubmit = (e) => {
     e.preventDefault();
     signIn(userData.Email, userData.Password, navigate, from);

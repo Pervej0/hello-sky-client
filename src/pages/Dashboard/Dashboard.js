@@ -19,10 +19,9 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { useAuth } from "../../Hooks/useAuth";
 
 const Dashboard = () => {
-  const { user, logOut } = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
-  if (!user) return;
   return (
     <Container maxWidth="true" sx={{ backgroundColor: COLORS.BLACK1 }}>
       <MainContainer>
@@ -40,7 +39,7 @@ const Dashboard = () => {
           </Box>
           <ListItemIcon
             sx={{ cursor: "pointer" }}
-            onClick={() => logOut(navigate)}
+            onClick={() => navigate(-1)}
             data-tooltip-content="Hello world!"
           >
             <LoginIcon sx={{ color: "white", fontSize: "28px" }} />
@@ -53,7 +52,7 @@ const Dashboard = () => {
                 sx={{
                   justifyContent: "center",
                   flexDirection: "column",
-                  borderBottom: "1px solid rgba(255,255,255,0.5)",
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.5)",
                   mt: 1,
                 }}
               >
