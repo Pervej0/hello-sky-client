@@ -87,7 +87,7 @@ const Subscription = () => {
                   <FormControl
                     onChange={handleChange()}
                     variant="outlined"
-                    fullWidth
+                    fullWidth="true"
                   >
                     <CustomSelect
                       defaultValue={20}
@@ -109,7 +109,7 @@ const Subscription = () => {
                     type="text"
                     name="Name"
                     placeholder="Name here"
-                    fullWidth
+                    fullWidth="true"
                   />
                 </Grid>
                 <TextField

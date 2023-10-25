@@ -40,7 +40,6 @@ const MobileBar = () => {
               isClicked ? setIsClicked(false) : setIsClicked(true)
             }
           >
-            {console.log(isClicked, "xxxxxxxxxx")}
             <MenuIcon sx={{ color: "white" }} fontSize="large" />
           </ListItemButton>
         </Box>

@@ -11,10 +11,10 @@ import {
 import { useEffect, useState } from "react";
 import { IMAGES } from "../Styles/constants";
 import firebaseAuthentication from "../Firebase/firebase.init";
-import { Navigate } from "react-router-dom";
 
 firebaseAuthentication();
 const auth = getAuth();
+
 const useFirebase = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
@@ -39,13 +39,13 @@ const useFirebase = () => {
   };
 
   //   sign in user
-  const signIn = (email, password) => {
+  const signIn = (email, password, navigate) => {
     setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((data) => {
         setUser(data.user);
         setIsLoading(false);
-        Navigate("/");
+        navigate("/");
       })
       .catch((error) => {
         setError(error.message);
@@ -55,13 +55,14 @@ const useFirebase = () => {
 
   // signIn with Google provider
 
-  const signInGoogle = () => {
+  const signInGoogle = (navigate) => {
     setIsLoading(true);
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
         setUser(result.user);
         setIsLoading(false);
+        navigate("/");
       })
       .catch((error) => {
         setError(error.message);
@@ -69,6 +70,7 @@ const useFirebase = () => {
   };
 
   // user sign in observer
+  // obserbing redering---
   useEffect(() => {
     setIsLoading(true);
     onAuthStateChanged(auth, (user) => {
@@ -80,8 +82,8 @@ const useFirebase = () => {
         setIsLoading(false);
       }
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
 
   //   logout
   const logOut = () => {

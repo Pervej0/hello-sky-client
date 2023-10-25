@@ -6,15 +6,17 @@ import {
   ListItem,
   Typography,
 } from "@mui/material";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { COLORS, CustomTypography, FONTS } from "../../Styles/constants";
 import styled from "styled-components";
 import { useAuth } from "../../Hooks/useAuth";
 import MobileBar from "../MobileBar/MobileBar";
 
 const Navbar = () => {
+  const [isProfileClicked, setIsProfileClicked] = useState(false);
   const { user, logOut } = useAuth();
+  if (!user) return;
 
   return (
     <MainContainer>
@@ -46,7 +48,7 @@ const Navbar = () => {
           >
             <List sx={{ display: "flex", flexDirection: "row" }}>
               <ListItem>
-                <Link to="/">Home</Link>
+                <NavLink to="/">Home</NavLink>
               </ListItem>
               <ListItem>
                 <Link to="/explore">Explore</Link>
@@ -63,21 +65,46 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
-                  <Box sx={{ display: "flex" }}>
+                  <Box sx={{ position: "relative" }}>
                     <Box
-                      component="img"
-                      sx={{
-                        height: 35,
-                        width: 35,
-                        marginRight: "10px",
-                        borderRadius: "50px",
-                      }}
-                      src={user?.photoURL}
-                      alt="The house from the offer."
-                    />
-                    <Link onClick={logOut} type="button">
-                      Log out
-                    </Link>
+                      sx={{ display: "flex" }}
+                      onClick={() =>
+                        isProfileClicked
+                          ? setIsProfileClicked(false)
+                          : setIsProfileClicked(true)
+                      }
+                    >
+                      <img
+                        style={{
+                          height: 35,
+                          width: 35,
+                          marginRight: "10px",
+                          borderRadius: "50px",
+                        }}
+                        src={user.photoURL}
+                        alt="The house from the offer."
+                      />
+                    </Box>
+                    {isProfileClicked && (
+                      <CustomBox>
+                        <List>
+                          <ListItem className="nameField">
+                            {user.displayName}
+                          </ListItem>
+                          <ListItem>
+                            <Link to="/dashboard">Dashboard</Link>
+                          </ListItem>
+                          <ListItem>
+                            <Link to="/dashboard/settings">Settings</Link>
+                          </ListItem>
+                          <ListItem>
+                            <Link onClick={logOut} type="button">
+                              Log out
+                            </Link>
+                          </ListItem>
+                        </List>
+                      </CustomBox>
+                    )}
                   </Box>
                 </>
               )}
@@ -155,6 +182,30 @@ const NavbarGrid = styled(Grid)`
     background: white;
     color: BLACK;
     font-weight: 600;
+  }
+`;
+
+const CustomBox = styled(Box)`
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  min-height: 200px;
+  width: 200px;
+  background-color: ${COLORS.WHITE};
+  border-radius: 20px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  li:not(.nameField) {
+    padding-bottom: 0px;
+  }
+  li a {
+    color: ${COLORS.BLACK} !important;
+  }
+  .nameField {
+    justify-content: center;
+    font-weight: 500;
+    font-size: ${CustomTypography.MEDIUM};
+    border-bottom: 2px solid black;
+    font-family: ${FONTS.SECONDARY};
   }
 `;
 

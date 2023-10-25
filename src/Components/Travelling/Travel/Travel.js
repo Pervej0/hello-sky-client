@@ -49,7 +49,7 @@ const TravelCard = styled(Card)`
   }
 
   @media only screen and (max-width: 600px) {
-    height: 330px;
+    height: auto;
   }
 `;
 

@@ -66,7 +66,7 @@ function FlightStatus(props) {
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               <Grid item sm={3} xs={12}>
-                <FormControl fullWidth>
+                <FormControl fullWidth="true">
                   <InputLabel
                     id="demo-simple-select-label"
                     sx={{ fontSize: "20px" }}
@@ -104,7 +104,7 @@ function FlightStatus(props) {
                 </FormControl>
               </Grid>
               <Grid item sm={3} xs={12}>
-                <FormControl fullWidth>
+                <FormControl fullWidth="true">
                   <InputLabel
                     id="demo-simple-select-label"
                     sx={{ fontSize: "20px" }}

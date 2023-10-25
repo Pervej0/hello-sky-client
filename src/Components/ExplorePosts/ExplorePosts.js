@@ -18,7 +18,7 @@ const ExplorePosts = ({ showSlide }) => {
         setIsLoading(false);
       });
   }, []);
-  console.log(travelPosts[0]);
+
   const { media_image, travelingCity, travelingCountry, _id } =
     !isLoading && travelPosts[0];
 
@@ -65,7 +65,7 @@ const ExplorePosts = ({ showSlide }) => {
           <Slider {...settings}>
             {travelPosts.map((item) => (
               <TravelField
-                urlLink={item.media_image}
+                urllink={item.media_image}
                 sx={{
                   height: "80vh",
                 }}
@@ -88,9 +88,9 @@ const ExplorePosts = ({ showSlide }) => {
           </Slider>
         )}
         {!isLoading && !showSlide && (
-          <Grid container sx={{ height: "80vh" }}>
+          <Grid className="explorePost-item" container>
             <Grid item xs={12} sm={5}>
-              <TravelField urlLink={media_image}>
+              <TravelField urllink={media_image}>
                 <Box sx={{ p: 4 }}>
                   <Typography variant="span" component="span">
                     {travelingCity} and The {travelingCountry}
@@ -105,8 +105,8 @@ const ExplorePosts = ({ showSlide }) => {
             <Grid item xs={12} sm={7}>
               <Grid container sx={{ height: "80vh" }}>
                 {travelPosts.slice(1, 3).map((item) => (
-                  <Grid item md={6} sm={12}>
-                    <TravelField urlLink={item.media_image}>
+                  <Grid item md={6} sm={12} xs={12}>
+                    <TravelField urllink={item.media_image}>
                       <Box sx={{ p: 4 }}>
                         <Typography variant="span" component="span">
                           {item.travelingCity} and The {item.travelingCountry}
@@ -119,9 +119,8 @@ const ExplorePosts = ({ showSlide }) => {
                     </TravelField>
                   </Grid>
                 ))}
-
                 <Grid item xs={12}>
-                  <TravelField urlLink={travelPosts[4].media_image}>
+                  <TravelField urllink={travelPosts[4].media_image}>
                     <Box sx={{ p: 4 }}>
                       <Typography variant="span" component="span">
                         {travelPosts[4].travelingCity} and The{" "}
@@ -147,7 +146,7 @@ const ExplorePosts = ({ showSlide }) => {
 
 const TravelField = styled(Box)`
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)),
-    url(${({ urlLink }) => urlLink}) no-repeat;
+    url(${({ urllink }) => urllink}) no-repeat;
   background-position: center center;
   background-size: cover;
   width: 100%;
@@ -172,6 +171,12 @@ const TravelField = styled(Box)`
   a {
     color: ${COLORS.WHITE};
     text-underline-offset: 6px;
+  }
+
+  .explorePost-item {
+    /* @media only screen and (max-width: 900px) {
+      min-height: 80vh;
+    } */
   }
 `;
 

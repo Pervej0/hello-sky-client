@@ -2,12 +2,14 @@ import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import Navbar2 from "../../Components/Navbar/Navbar2";
 import { useAuth } from "../../Hooks/useAuth";
-import { COLORS, CustomTypography } from "../../Styles/constants";
+import { COLORS, CustomTypography, FONTS } from "../../Styles/constants";
 import GoogleIcon from "@mui/icons-material/Google";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [userData, setUserData] = useState({});
   const { error, signIn, signInGoogle } = useAuth();
+  const navigate = useNavigate();
 
   const handleInput = (data) => {
     const { name, value } = data.target;
@@ -16,14 +18,14 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signIn(userData.Email, userData.Password);
+    signIn(userData.Email, userData.Password, navigate);
     e.target.reset();
   };
   return (
     <>
       <Navbar2 />
       <Container>
-        <Grid container spacing={2} mt={5} mb={3} alignItems="center">
+        <Grid container spacing={4} mt={5} mb={5} alignItems="center">
           <Grid item xs={6}>
             <form onSubmit={handleSubmit}>
               <TextField
@@ -68,15 +70,30 @@ const Login = () => {
                 Log In
               </Button>
             </form>
+
             <Typography my={3} sx={{ textAlign: "center" }}>
               ---------------- Or ----------------
             </Typography>
-            <Button onClick={signInGoogle} fullWidth="true" variant="contained">
+            <Button
+              onClick={() => signInGoogle(navigate)}
+              fullWidth="true"
+              variant="contained"
+            >
               <GoogleIcon /> &nbsp; Sign In With Google
             </Button>
           </Grid>
           <Grid item xs={6}>
-            <h1>geloo</h1>
+            <Typography
+              my={2}
+              variant="h5"
+              sx={{ display: "inline-block", fontFamily: FONTS.SECONDARY }}
+            >
+              If you are new here,
+              <br /> create an account?{" "}
+              <Link to="/registration" style={{ textDecoration: "none" }}>
+                Sing up
+              </Link>
+            </Typography>
           </Grid>
         </Grid>
       </Container>

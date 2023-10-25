@@ -30,10 +30,12 @@ import { Dropdown } from "@mui/base/Dropdown";
 import { Menu } from "@mui/base/Menu";
 import { MenuButton } from "@mui/base/MenuButton";
 import dayjs from "dayjs";
+import { useAuth } from "../../../Hooks/useAuth";
 
 function BookAFlight(props) {
   const { children, value, index, ...other } = props;
-  const [airportList, setAirportList] = useState("");
+  const { user } = useAuth();
+
   const [data, setData] = useState({
     flightFrom: "",
     flightTo: props.arrival,
@@ -49,31 +51,7 @@ function BookAFlight(props) {
     children: 0,
     infants: 0,
   });
-
-  // useEffect(() => {
-  //   const options = {
-  //     method: "GET",
-  //     params: {
-  //       bl_lat: "13.607884",
-  //       bl_lng: "100.641975",
-  //       tr_lat: "13.771029",
-  //       tr_lng: "100.861566",
-  //       limit: "300",
-  //     },
-  //     headers: {
-  //       "X-RapidAPI-Key": "15d6297e5dmshe5f4660a31ad857p1b116ejsn0fcae74f0c35",
-  //       "X-RapidAPI-Host": "flight-radar1.p.rapidapi.com",
-  //     },
-  //   };
-  //   fetch(
-  //     "https://flight-radar1.p.rapidapi.com/flights/list-in-boundary",
-  //     options
-  //   )
-  //     .then((res) => res.json())
-  //     .then((data) => console.log(data.rows, "ggggggggggg"))
-  //     .catch((error) => console.log(error));
-  // }, []);
-
+  if (!user) return;
   const handlePassangerCount = (e) => {
     if (e.target.id === "addInfants" && countPassanger.infants < 3) {
       setCountPassanger((prev) => ({
@@ -194,7 +172,7 @@ function BookAFlight(props) {
                   sx={{ width: "100%", border: "0px" }}
                   labelid="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={data.fullName}
+                  value={data.fullName || user.displayName}
                   placeholder="Enter Name"
                   onChange={handleChange}
                   name="fullName"
@@ -222,7 +200,7 @@ function BookAFlight(props) {
                   labelid="demo-simple-select-label"
                   id="demo-simple-select"
                   type="email"
-                  value={data.email}
+                  value={data.email || user.email}
                   placeholder="Enter Email"
                   onChange={handleChange}
                   required

@@ -14,6 +14,7 @@ const TravelBook = () => {
   const { listId } = useParams();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetch(`http://localhost:5000/travels_destination/${listId}`)
       .then((res) => res.json())
       .then((data) => {
@@ -23,22 +24,19 @@ const TravelBook = () => {
   }, []);
 
   return (
-    <>
-      <Container
-        maxWidth="true"
-        sx={{
-          backgroundColor: COLORS.BLACK1,
-          padding: 0,
-          margin: 0,
-          minHeight: "100vh",
-        }}
-      >
-        <Navbar />
-        <Container>
-          {!isLoading && <BookAFlight arrival={travelItem?.destination} />}
-        </Container>
+    <Container
+      maxWidth="true"
+      sx={{
+        backgroundColor: COLORS.BLACK1,
+        padding: 0,
+        margin: 0,
+      }}
+    >
+      <Navbar />
+      <Container sx={{ py: 10 }}>
+        {!isLoading && <BookAFlight arrival={travelItem?.destination} />}
       </Container>
-    </>
+    </Container>
   );
 };
 

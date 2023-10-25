@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { CustomTypography } from "../../Styles/constants";
 import { useAuth } from "../../Hooks/useAuth";
 import GoogleIcon from "@mui/icons-material/Google";
+import regImg from "../../images/registration.png";
 
 const Registration = () => {
   const [userData, setUserData] = useState({});
@@ -40,6 +41,10 @@ const Registration = () => {
       setUserError("Password dosen't matched!");
       return;
     }
+    if (typeof parseInt(userData.PhoneNumber) !== "number") {
+      setUserError("Password dosen't matched!");
+      return;
+    }
     if (userData.Password === userData.ConfirmPassword) {
       setUserError("");
     }
@@ -50,6 +55,7 @@ const Registration = () => {
       userData.Fullname,
       userData.PhoneNumber
     );
+
     event.target.reset();
   };
 
@@ -57,23 +63,21 @@ const Registration = () => {
     <>
       <Navbar2 />
       <Container>
-        <Grid alignItems="center" container spacing={3}>
+        <Grid alignItems="center" container spacing={3} sx={{ py: 8 }}>
           <Grid item xs={6}>
+            <Typography
+              variant="h4"
+              pb={3}
+              sx={{ fontFamily: FONTS.SECONDARY }}
+            >
+              It Will Take Only Few Minutes To Create An Account
+            </Typography>
             <CustomBox>
-              <h1>ge</h1>
+              <img src={regImg} alt="Registration" />
             </CustomBox>
           </Grid>
           <Grid item xs={6}>
             <FormBox>
-              <Typography
-                variant="h4"
-                pt={3}
-                pb={3}
-                sx={{ fontFamily: FONTS.SECONDARY }}
-              >
-                It Will Take Only Few Minutes To Create An Account
-              </Typography>
-
               <form onSubmit={handleSubmit}>
                 <TextField
                   label="Full name"
@@ -87,15 +91,13 @@ const Registration = () => {
                 />
                 <TextField
                   sx={{ margin: "1rem 0" }}
-                  type="number"
+                  type="text"
                   label="Phone number"
                   variant="outlined"
                   name="PhoneNumber"
                   onChange={handleInput}
-                  onInput={(e) => {
-                    e.target.value = Math.max(0, parseInt(e.target.value))
-                      .toString()
-                      .slice(0, 14);
+                  inputProps={{
+                    maxLength: 13,
                   }}
                   fullWidth="true"
                   autoComplete="off"
@@ -192,7 +194,11 @@ const Registration = () => {
 const CustomBox = styled(Box)`
   width: 100%;
   padding: 10px;
-  border: 1px solid #000000;
+  img {
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+  }
 `;
 
 const FormBox = styled(Box)`

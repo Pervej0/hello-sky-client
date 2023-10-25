@@ -5,13 +5,29 @@ import {
   Container,
   Typography,
 } from "@mui/material";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { COLORS, CustomButton } from "../../../Styles/constants";
+import { COLORS, CustomButton, FONTS } from "../../../Styles/constants";
 import Navbar from "../../Navbar/Navbar";
 
 const SinglePost = (props) => {
+  const [singleExplorePost, setSingleExplorePost] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  const { postId } = useParams();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    fetch(`http://localhost:5000/travels_post/${postId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSingleExplorePost(data);
+        setIsLoading(false);
+      });
+  }, []);
+
+  console.log(singleExplorePost, "xxxxxx");
   return (
     <>
       <Container
@@ -24,36 +40,30 @@ const SinglePost = (props) => {
         }}
       >
         <Navbar />
-        <Box className="singleCard" sx={{ mx: 2 }}>
-          <MediaBox>
-            <Overlap className="overlap" />
-            <CardMedia
-              className="cardMedia"
-              src="https://images.unsplash.com/photo-1540339832862-474599807836?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
-              alt="green iguana"
-            />
-          </MediaBox>
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Lizard
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over
-              6,000 species, ranging across all continents except Antarctica
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Link style={{ width: "100%" }} to="/explore">
-              <CustomButton
-                sx={{ width: "100%" }}
-                variant="contained"
-                size="small"
-              >
-                Read More
-              </CustomButton>
-            </Link>
-          </CardActions>
-        </Box>
+        <Container sx={{ mt: 5 }}>
+          <Box className="singleCard" sx={{ mx: 2 }}>
+            <MediaBox>
+              <Overlap className="overlap" />
+              <CardMedia
+                className="cardMedia"
+                src={singleExplorePost.media_image}
+                alt="green iguana"
+              />
+            </MediaBox>
+            <CardContentModify>
+              <Typography gutterBottom variant="h5" component="div">
+                Discover The {singleExplorePost.travelingCountry} City
+              </Typography>
+              <Typography variant="span">
+                {singleExplorePost.travelingCountry}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Lizards are a widespread group of squamate reptiles, with over
+                6,000 species, ranging across all continents except Antarctica
+              </Typography>
+            </CardContentModify>
+          </Box>
+        </Container>
       </Container>
     </>
   );
@@ -63,7 +73,7 @@ const MediaBox = styled(Box)`
   position: relative;
   left: 0;
   top: 0;
-  height: 150px;
+  height: 250px;
   width: 100%;
   overflow: hidden;
   :hover img {
@@ -77,6 +87,7 @@ const CardMedia = styled.img`
   width: 100%;
   /* transform: scale(1); */
   transition: ease 0.4s;
+  color: ${COLORS.WHITE};
 `;
 
 const Overlap = styled.div`
@@ -89,6 +100,21 @@ const Overlap = styled.div`
   transition: linear 0.4s;
   :hover {
     background-color: transparent;
+  }
+`;
+
+const CardContentModify = styled(CardContent)`
+  margin-top: 2rem;
+  color: ${COLORS.WHITE};
+  font-family: ${FONTS.SECONDARY};
+  span {
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+  p {
+    font-family: ${FONTS.SECONDARY};
+    margin-top: 16px;
+    color: ${COLORS.WHITE};
   }
 `;
 
