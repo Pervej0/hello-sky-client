@@ -9,18 +9,18 @@ import {
 } from "@mui/material";
 import React from "react";
 import { COLORS, CustomTypography, FONTS } from "../../Styles/constants";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import LoginIcon from "@mui/icons-material/Login";
 import HomeIcon from "@mui/icons-material/Home";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import AddTaskIcon from "@mui/icons-material/AddTask";
 import BuildIcon from "@mui/icons-material/Build";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import { useAuth } from "../../Hooks/useAuth";
 
 const Dashboard = () => {
   const { user, logOut } = useAuth();
+  const navigate = useNavigate();
 
   if (!user) return;
   return (
@@ -40,7 +40,7 @@ const Dashboard = () => {
           </Box>
           <ListItemIcon
             sx={{ cursor: "pointer" }}
-            onClick={logOut}
+            onClick={() => logOut(navigate)}
             data-tooltip-content="Hello world!"
           >
             <LoginIcon sx={{ color: "white", fontSize: "28px" }} />

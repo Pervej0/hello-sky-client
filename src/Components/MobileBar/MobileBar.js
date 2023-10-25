@@ -1,15 +1,6 @@
-import {
-  Box,
-  Container,
-  Grid,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  Typography,
-} from "@mui/material";
+import { Box, List, ListItem, ListItemButton, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { COLORS, CustomTypography, FONTS } from "../../Styles/constants";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -18,7 +9,7 @@ import { useAuth } from "../../Hooks/useAuth";
 const MobileBar = () => {
   const [isClicked, setIsClicked] = useState(false);
   const { user, logOut } = useAuth();
-
+  const navigate = useNavigate();
   return (
     <>
       <MobileBox>
@@ -77,7 +68,7 @@ const MobileBar = () => {
                         src={user?.photoURL}
                         alt="The house from the offer."
                       />
-                      <Link onClick={logOut} type="button">
+                      <Link onClick={() => logOut(navigate)} type="button">
                         Log out
                       </Link>
                     </Box>

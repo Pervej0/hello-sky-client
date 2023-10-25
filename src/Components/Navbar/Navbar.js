@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { COLORS, CustomTypography, FONTS } from "../../Styles/constants";
 import styled from "styled-components";
 import { useAuth } from "../../Hooks/useAuth";
@@ -16,8 +16,7 @@ import MobileBar from "../MobileBar/MobileBar";
 const Navbar = () => {
   const [isProfileClicked, setIsProfileClicked] = useState(false);
   const { user, logOut } = useAuth();
-  if (!user) return;
-
+  const navigate = useNavigate();
   return (
     <MainContainer>
       <Box className="mobileBar">
@@ -81,7 +80,7 @@ const Navbar = () => {
                           marginRight: "10px",
                           borderRadius: "50px",
                         }}
-                        src={user.photoURL}
+                        src={user?.photoURL}
                         alt="The house from the offer."
                       />
                     </Box>
@@ -89,7 +88,7 @@ const Navbar = () => {
                       <CustomBox>
                         <List>
                           <ListItem className="nameField">
-                            {user.displayName}
+                            {user?.displayName}
                           </ListItem>
                           <ListItem>
                             <Link to="/dashboard">Dashboard</Link>
@@ -98,7 +97,10 @@ const Navbar = () => {
                             <Link to="/dashboard/settings">Settings</Link>
                           </ListItem>
                           <ListItem>
-                            <Link onClick={logOut} type="button">
+                            <Link
+                              onClick={() => logOut(navigate)}
+                              type="button"
+                            >
                               Log out
                             </Link>
                           </ListItem>

@@ -23,6 +23,7 @@ import Booking from "./pages/Booking/Booking";
 import AllUsers from "./pages/AllUsers/AllUsers";
 import Settings from "./pages/Settings/Settings";
 import BookingReview from "./pages/BookingReview/BookingReview";
+import NotFound from "./pages/NotFound/NotFound";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/experience" element={<Experience />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
+          <Route path="*" element={<NotFound />} />
           <Route element={<PrivateRoutes />}>
             <Route path="/explore/:postId" element={<SinglePost />} />
             <Route path="/experience/:listId" element={<TravelBook />} />

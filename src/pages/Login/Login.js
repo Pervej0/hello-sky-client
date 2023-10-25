@@ -4,11 +4,12 @@ import Navbar2 from "../../Components/Navbar/Navbar2";
 import { useAuth } from "../../Hooks/useAuth";
 import { COLORS, CustomTypography, FONTS } from "../../Styles/constants";
 import GoogleIcon from "@mui/icons-material/Google";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [userData, setUserData] = useState({});
   const { error, signIn, signInGoogle } = useAuth();
+  const location = useLocation();
   const navigate = useNavigate();
 
   const handleInput = (data) => {
@@ -16,11 +17,15 @@ const Login = () => {
     setUserData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const { from } = location.state || { from: { pathname: "/" } };
+
+  console.log(location, from, "xxxxxxxxxx");
   const handleSubmit = (e) => {
     e.preventDefault();
-    signIn(userData.Email, userData.Password, navigate);
+    signIn(userData.Email, userData.Password, navigate, from);
     e.target.reset();
   };
+
   return (
     <>
       <Navbar2 />

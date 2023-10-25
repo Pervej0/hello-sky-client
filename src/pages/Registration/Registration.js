@@ -10,7 +10,7 @@ import {
 import styled from "styled-components";
 import Navbar2 from "../../Components/Navbar/Navbar2";
 import { COLORS, FONTS } from "../../Styles/constants";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CustomTypography } from "../../Styles/constants";
 import { useAuth } from "../../Hooks/useAuth";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -20,7 +20,9 @@ const Registration = () => {
   const [userData, setUserData] = useState({});
   const [userError, setUserError] = useState("");
   const { createUser, signInGoogle } = useAuth();
-
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { from } = location.state || { from: { pathname: "/" } };
   const handleInput = (e) => {
     const { name, value } = e.target;
     setUserData((prev) => ({
@@ -53,7 +55,9 @@ const Registration = () => {
       userData.Email,
       userData.Password,
       userData.Fullname,
-      userData.PhoneNumber
+      userData.PhoneNumber,
+      navigate,
+      from
     );
 
     event.target.reset();

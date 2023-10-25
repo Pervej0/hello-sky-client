@@ -1,6 +1,6 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { COLORS, CustomTypography, FONTS } from "../../Styles/constants";
 import styled from "styled-components";
 import { useAuth } from "../../Hooks/useAuth";
@@ -8,6 +8,7 @@ import { useAuth } from "../../Hooks/useAuth";
 const Navbar2 = () => {
   const location = useLocation();
   const { logOut, user } = useAuth();
+  const navigate = useNavigate();
 
   const NavItem = () => {
     if (!user?.email) {
@@ -18,7 +19,7 @@ const Navbar2 = () => {
       }
     } else {
       return (
-        <Link onClick={logOut} type="button">
+        <Link onClick={() => logOut(navigate)} type="button">
           Log out
         </Link>
       );

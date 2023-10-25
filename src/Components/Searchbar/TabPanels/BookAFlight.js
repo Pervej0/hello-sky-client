@@ -51,7 +51,7 @@ function BookAFlight(props) {
     children: 0,
     infants: 0,
   });
-  if (!user) return;
+
   const handlePassangerCount = (e) => {
     if (e.target.id === "addInfants" && countPassanger.infants < 3) {
       setCountPassanger((prev) => ({
@@ -172,7 +172,7 @@ function BookAFlight(props) {
                   sx={{ width: "100%", border: "0px" }}
                   labelid="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={data.fullName || user.displayName}
+                  value={data.fullName || user?.displayName}
                   placeholder="Enter Name"
                   onChange={handleChange}
                   name="fullName"
@@ -200,7 +200,7 @@ function BookAFlight(props) {
                   labelid="demo-simple-select-label"
                   id="demo-simple-select"
                   type="email"
-                  value={data.email || user.email}
+                  value={data.email || user?.email}
                   placeholder="Enter Email"
                   onChange={handleChange}
                   required
