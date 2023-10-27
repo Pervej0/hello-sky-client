@@ -123,7 +123,6 @@ const useFirebase = () => {
       });
   }, [user]);
 
-  console.log(userRole, "xxxxxxxxxxxx");
   //   logout
   const logOut = (navigate) => {
     setIsLoading(true);
