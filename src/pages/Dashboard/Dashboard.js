@@ -6,6 +6,7 @@ import {
   ListItem,
   ListItemIcon,
   Typography,
+  Button,
 } from "@mui/material";
 import React from "react";
 import { COLORS, CustomTypography, FONTS } from "../../Styles/constants";
@@ -14,12 +15,12 @@ import styled from "styled-components";
 import LoginIcon from "@mui/icons-material/Login";
 import HomeIcon from "@mui/icons-material/Home";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import BuildIcon from "@mui/icons-material/Build";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import { useAuth } from "../../Hooks/useAuth";
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  const { user, userRole, logOut } = useAuth();
   const navigate = useNavigate();
 
   return (
@@ -46,7 +47,7 @@ const Dashboard = () => {
           </ListItemIcon>
         </Box>
         <Grid container>
-          <Grid className="leftBar" item xs={12} md={3}>
+          <Grid className="leftBar" item xs={12} sm={12} md={3}>
             <List>
               <ListItem
                 sx={{
@@ -66,35 +67,51 @@ const Dashboard = () => {
                   <Typography variant="h6">{user.displayName}</Typography>
                   {!user?.isAdmin && (
                     <Typography variant="small" component="small">
-                      Admin
+                      {userRole}
                     </Typography>
                   )}
                 </Box>
               </ListItem>
+
               <ListItem>
                 <HomeIcon />
                 &nbsp; <Link to="dashboard">Dashboard</Link>
-              </ListItem>
-
-              <ListItem>
-                <AccountBoxIcon />
-                &nbsp; <Link to="users">All Users</Link>
               </ListItem>
               <ListItem>
                 <BookmarkIcon />
                 &nbsp; <Link to="booking">My Booking</Link>
               </ListItem>
+              {userRole === "Admin" || userRole === "Moderator" ? (
+                <>
+                  <ListItem>
+                    <AccountBoxIcon />
+                    &nbsp; <Link to="users">All Users</Link>
+                  </ListItem>
+                  <ListItem>
+                    <BookmarkIcon />
+                    &nbsp; <Link to="booking-review">Booking Review</Link>
+                  </ListItem>
+                  <ListItem>
+                    <SupervisorAccountIcon />
+                    &nbsp; <Link to="add-admin">Add Admin</Link>
+                  </ListItem>
+                </>
+              ) : (
+                <></>
+              )}
+
               <ListItem>
-                <BuildIcon />
-                &nbsp; <Link to="settings">Settings</Link>
-              </ListItem>
-              <ListItem>
-                <BookmarkIcon />
-                &nbsp; <Link to="booking-review">Booking Review</Link>
+                <Button
+                  type="button"
+                  variant="outlined"
+                  onClick={() => logOut(navigate)}
+                >
+                  Log Out
+                </Button>
               </ListItem>
             </List>
           </Grid>
-          <Grid className="contentBar" item xs={12} sm={9}>
+          <Grid className="contentBar" item xs={12} sm={12} md={9}>
             <Outlet />
           </Grid>
         </Grid>
@@ -129,9 +146,9 @@ const MainContainer = styled(Container)`
     border-bottom: 0;
     border-top: 0;
     text-align: center;
-    @media only screen and (max-width: 760px) {
-      height: auto;
-      border-bottom: 1;
+    @media only screen and (max-width: 900px) {
+      min-height: auto;
+      border: 1px solid white;
     }
 
     li:nth-child(2) {
@@ -144,12 +161,33 @@ const MainContainer = styled(Container)`
       text-transform: uppercase;
       font-weight: 500;
       letter-spacing: 1px;
+      @media only screen and (max-width: 900px) {
+        /* display: inherit; */
+      }
     }
     a,
     path {
       color: ${COLORS.WHITE};
       font-family: ${FONTS.SECONDARY};
       text-decoration: none;
+    }
+    button {
+      color: ${COLORS.WHITE};
+      text-transform: uppercase;
+      margin-top: 3rem;
+      @media only screen and (max-width: 900px) {
+        margin-top: auto;
+      }
+    }
+  }
+  .contentBar {
+    @media only screen and (max-width: 900px) {
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      .css-rd586k-MuiContainer-root {
+        padding-left: 0px;
+        padding-right: 0px;
+      }
     }
   }
 `;

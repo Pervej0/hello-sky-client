@@ -11,7 +11,7 @@ const ExplorePosts = ({ showSlide }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/travels_post")
+    fetch("https://hello-sky-server.onrender.com/travels_post")
       .then((res) => res.json())
       .then((data) => {
         setTravelPosts(data);
@@ -171,12 +171,6 @@ const TravelField = styled(Box)`
   a {
     color: ${COLORS.WHITE};
     text-underline-offset: 6px;
-  }
-
-  .explorePost-item {
-    /* @media only screen and (max-width: 900px) {
-      min-height: 80vh;
-    } */
   }
 `;
 

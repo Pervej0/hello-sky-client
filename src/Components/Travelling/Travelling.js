@@ -23,7 +23,7 @@ const Travelling = (props) => {
   });
 
   useEffect(() => {
-    fetch("http://localhost:5000/travels_destination")
+    fetch("https://hello-sky-server.onrender.com/travels_destination")
       .then((res) => res.json())
       .then((data) => {
         setOriginalTravelLists(data);

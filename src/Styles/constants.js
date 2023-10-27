@@ -22,6 +22,8 @@ export const COLORS = {
   BLUE2: "#0866FF",
   RED: "#FF0000",
   RED1: "#E84A52",
+  GREEN: "#039c12",
+  MAGENTA: "#CA1F7B",
 };
 
 export const FONTS = {

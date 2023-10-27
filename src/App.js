@@ -21,9 +21,11 @@ import PrivateRoutes from "./pages/PrivateRoutes/PrivateRoutes";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Booking from "./pages/Booking/Booking";
 import AllUsers from "./pages/AllUsers/AllUsers";
-import Settings from "./pages/Settings/Settings";
+import Settings from "./pages/AdminRoute/AdminRoute";
 import BookingReview from "./pages/BookingReview/BookingReview";
 import NotFound from "./pages/NotFound/NotFound";
+import AddAdmin from "./pages/AddAdmin/AddAdmin";
+import AdminRoute from "./pages/AdminRoute/AdminRoute";
 
 function App() {
   return (
@@ -41,11 +43,19 @@ function App() {
             <Route path="/explore/:postId" element={<SinglePost />} />
             <Route path="/experience/:listId" element={<TravelBook />} />
             <Route path="/dashboard" element={<Dashboard />}>
-              <Route path="dashboard" element={<h1>Welcome To Dashboard</h1>} />
+              <Route
+                path="dashboard"
+                element={
+                  <h1 style={{ textAlign: "center" }}>Welcome To Dashboard</h1>
+                }
+              />
               <Route path="booking" element={<Booking />} />
-              <Route path="booking-review" element={<BookingReview />} />
-              <Route path="users" element={<AllUsers />} />
-              <Route path="settings" element={<Settings />} />
+              <Route element={<AdminRoute />}>
+                <Route path="booking-review" element={<BookingReview />} />
+                <Route path="users" element={<AllUsers />} />
+                <Route path="add-admin" element={<AddAdmin />} />
+              </Route>
+              {/* <Route path="settings" element={<Settings />} /> */}
             </Route>
           </Route>
         </Routes>

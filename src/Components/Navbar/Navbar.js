@@ -91,10 +91,10 @@ const Navbar = () => {
                             {user?.displayName}
                           </ListItem>
                           <ListItem>
-                            <Link to="/dashboard">Dashboard</Link>
+                            <Link to="/dashboard/dashboard">Dashboard</Link>
                           </ListItem>
                           <ListItem>
-                            <Link to="/dashboard/settings">Settings</Link>
+                            <Link to="/dashboard/booking">My Booking</Link>
                           </ListItem>
                           <ListItem>
                             <Link

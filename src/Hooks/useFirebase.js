@@ -11,6 +11,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { IMAGES } from "../Styles/constants";
+import { useLocation } from "react-router-dom";
 
 firebaseAuthentication();
 const auth = getAuth();
@@ -19,6 +20,7 @@ const useFirebase = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [userRole, setUserRole] = useState("");
 
   const createUser = (email, password, name, phone, navigate, from) => {
     setIsLoading(true);
@@ -46,7 +48,7 @@ const useFirebase = () => {
 
   // send user to db
   const userStorage = (data, method) => {
-    fetch("http://localhost:5000/users", {
+    fetch("https://hello-sky-server.onrender.com/users", {
       method,
       headers: {
         Accept: "application/json",
@@ -55,7 +57,7 @@ const useFirebase = () => {
       body: JSON.stringify(data),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then(data);
   };
 
   //   sign in user
@@ -110,6 +112,18 @@ const useFirebase = () => {
   }, []);
   // eslint-disable-next-line react-hooks/exhaustive-deps
 
+  // user role check
+
+  useEffect(() => {
+    if (!user?.email) return;
+    fetch(`https://hello-sky-server.onrender.com/admin/${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUserRole(data.role || "User");
+      });
+  }, [user]);
+
+  console.log(userRole, "xxxxxxxxxxxx");
   //   logout
   const logOut = (navigate) => {
     setIsLoading(true);
@@ -123,7 +137,16 @@ const useFirebase = () => {
       });
   };
 
-  return { createUser, user, error, signIn, isLoading, logOut, signInGoogle };
+  return {
+    createUser,
+    user,
+    error,
+    signIn,
+    isLoading,
+    logOut,
+    signInGoogle,
+    userRole,
+  };
 };
 
 export default useFirebase;

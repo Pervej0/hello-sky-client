@@ -8,19 +8,21 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button, Container } from "@mui/material";
 import { useAuth } from "../../Hooks/useAuth";
+import styled from "styled-components";
+import { COLORS, FONTS } from "../../Styles/constants";
 
 const Booking = () => {
   const [myBookingData, setMyBookingData] = useState([]);
   const { user } = useAuth();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/bookings/${user.email}`)
+    fetch(`https://hello-sky-server.onrender.com/bookings/${user.email}`)
       .then((res) => res.json())
       .then((data) => setMyBookingData(data));
   }, [myBookingData]);
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:5000/bookings/${id}`, {
+    fetch(`https://hello-sky-server.onrender.com/bookings/${id}`, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -32,7 +34,7 @@ const Booking = () => {
   };
 
   return (
-    <Container sx={{ mt: 3 }}>
+    <MainContainer sx={{ mt: 3 }}>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -41,7 +43,7 @@ const Booking = () => {
               <TableCell align="right">Phone</TableCell>
               <TableCell align="right">Passangers</TableCell>
               <TableCell align="right">Fly Date</TableCell>
-              <TableCell align="right">Bookin Status</TableCell>
+              <TableCell align="right">Booking Status</TableCell>
               <TableCell align="right">Edit</TableCell>
             </TableRow>
           </TableHead>
@@ -57,9 +59,15 @@ const Booking = () => {
                 <TableCell align="right">
                   {item?.flyDate.substr(0, 10)}
                 </TableCell>
-                <TableCell align="right">{item?.status}</TableCell>
+                <StatusTableCell align="right" status={item.status}>
+                  {item?.status}
+                </StatusTableCell>
                 <TableCell align="right">
-                  <Button type="button" onClick={() => handleDelete(item._id)}>
+                  <Button
+                    type="button"
+                    sx={{ color: "red" }}
+                    onClick={() => handleDelete(item._id)}
+                  >
                     Delete
                   </Button>
                 </TableCell>
@@ -68,8 +76,21 @@ const Booking = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </Container>
+    </MainContainer>
   );
 };
+
+const MainContainer = styled(Container)`
+  table tr td {
+    font-family: ${FONTS.SECONDARY};
+    color: ${COLORS.BLACK};
+  }
+`;
+
+const StatusTableCell = styled(TableCell)`
+  color: ${({ status }) =>
+    status === "Processing" ? COLORS.MAGENTA : COLORS.GREEN} !important;
+  font-weight: 600 !important;
+`;
 
 export default Booking;

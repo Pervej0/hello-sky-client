@@ -104,7 +104,7 @@ function BookAFlight(props) {
     if (!user) navigate("/login");
     data.status = "Active";
     setData(data);
-    fetch("http://localhost:5000/bookings", {
+    fetch("https://hello-sky-server.onrender.com/bookings", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -128,7 +128,7 @@ function BookAFlight(props) {
     <>
       {showAlert && (
         <Alert severity="success">
-          This is a success alert — check it out!
+          Your flight has been successfully booked.
         </Alert>
       )}
       <div

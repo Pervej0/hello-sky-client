@@ -9,25 +9,41 @@ import Paper from "@mui/material/Paper";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
 import { Container } from "@mui/material";
+import styled from "styled-components";
+import { COLORS, FONTS } from "../../Styles/constants";
 
 const BookingReview = () => {
   const [bookingsData, setBookingsData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/bookings")
+    fetch("https://hello-sky-server.onrender.com/bookings")
       .then((res) => res.json())
       .then((data) => setBookingsData(data));
-  }, []);
+  }, [bookingsData]);
 
   const handleFlightStatus = (e, id) => {
     const value = e.target.value;
-    if (value !== 10) {
-      CallToStatusUpdate({ status: value }, id);
+    if (value === 10) return;
+    if (value === "Delete") {
+      CallToDelete(id);
     }
+    CallToStatusUpdate({ status: value }, id);
+  };
+
+  const CallToDelete = (id) => {
+    fetch(`https://hello-sky-server.onrender.com/bookings/${id}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   };
 
   const CallToStatusUpdate = (st, id) => {
-    fetch(`http://localhost:5000/bookings/${id}`, {
+    fetch(`https://hello-sky-server.onrender.com/bookings/${id}`, {
       method: "PUT",
       headers: {
         Accept: "application/json",
@@ -40,7 +56,7 @@ const BookingReview = () => {
   };
 
   return (
-    <Container sx={{ mt: 3 }}>
+    <MainContainer sx={{ mt: 3 }}>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -65,7 +81,9 @@ const BookingReview = () => {
                 <TableCell align="right">
                   {item?.flyDate.substr(0, 10)}
                 </TableCell>
-                <TableCell align="right">{item.status}</TableCell>
+                <StatusTableCell align="right" status={item.status}>
+                  {item.status}
+                </StatusTableCell>
                 <TableCell align="right">
                   <FormControl fullWidth>
                     <NativeSelect
@@ -88,8 +106,21 @@ const BookingReview = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </Container>
+    </MainContainer>
   );
 };
+
+const MainContainer = styled(Container)`
+  table tr td {
+    font-family: ${FONTS.SECONDARY};
+    color: ${COLORS.BLACK};
+  }
+`;
+
+const StatusTableCell = styled(TableCell)`
+  color: ${({ status }) =>
+    status === "Processing" ? COLORS.MAGENTA : COLORS.GREEN} !important;
+  font-weight: 600 !important;
+`;
 
 export default BookingReview;

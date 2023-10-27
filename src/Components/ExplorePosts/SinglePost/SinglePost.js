@@ -19,7 +19,7 @@ const SinglePost = (props) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetch(`http://localhost:5000/travels_post/${postId}`)
+    fetch(`https://hello-sky-server.onrender.com/travels_post/${postId}`)
       .then((res) => res.json())
       .then((data) => {
         setSingleExplorePost(data);

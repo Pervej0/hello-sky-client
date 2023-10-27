@@ -12,7 +12,7 @@ const AllUsers = () => {
   const [usersData, setUsersData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/users")
+    fetch("https://hello-sky-server.onrender.com/users")
       .then((res) => res.json())
       .then((data) => setUsersData(data));
   }, []);

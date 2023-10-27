@@ -15,7 +15,7 @@ const TravelBook = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetch(`http://localhost:5000/travels_destination/${listId}`)
+    fetch(`https://hello-sky-server.onrender.com/travels_destination/${listId}`)
       .then((res) => res.json())
       .then((data) => {
         setTravelItem(data);
