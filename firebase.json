@@ -1,6 +1,7 @@
 {
   "hosting": {
     "public": "build",
+    "target": "hello-sky-96ac5",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {

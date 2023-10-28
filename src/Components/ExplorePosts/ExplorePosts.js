@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ContentTitle from "../ContentTitle/ContentTitle";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
 import styled from "styled-components";
 import { COLORS, FONTS } from "../../Styles/constants";
 import { Link } from "react-router-dom";
@@ -86,6 +92,11 @@ const ExplorePosts = ({ showSlide }) => {
               </TravelField>
             ))}
           </Slider>
+        )}
+        {isLoading && (
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <CircularProgress />
+          </Box>
         )}
         {!isLoading && !showSlide && (
           <Grid className="explorePost-item" container>

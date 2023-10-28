@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   Grid,
   TextField,
@@ -82,6 +83,11 @@ const Travelling = (props) => {
           </Typography>
         )}
       </CustomContent>
+      {isLoading && (
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <CircularProgress />
+        </Box>
+      )}
       {props.showDesc && (
         <Box sx={{ textAlign: "center" }}>
           <CustomTextField
