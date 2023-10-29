@@ -50,11 +50,11 @@ function App() {
                 }
               />
               <Route path="booking" element={<Booking />} />
-            </Route>
-            <Route element={<AdminRoute />}>
-              <Route path="booking-review" element={<BookingReview />} />
-              <Route path="users" element={<AllUsers />} />
-              <Route path="add-admin" element={<AddAdmin />} />
+              <Route element={<AdminRoute />}>
+                <Route path="booking-review" element={<BookingReview />} />
+                <Route path="users" element={<AllUsers />} />
+                <Route path="add-admin" element={<AddAdmin />} />
+              </Route>
             </Route>
           </Route>
         </Routes>

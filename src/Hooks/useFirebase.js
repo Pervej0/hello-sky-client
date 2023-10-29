@@ -11,7 +11,6 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { IMAGES } from "../Styles/constants";
-import { useLocation } from "react-router-dom";
 
 firebaseAuthentication();
 const auth = getAuth();
